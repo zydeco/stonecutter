@@ -1,0 +1,332 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF22035FD6C00638663 /* AppDelegate.m */; };
+		286C6EF62035FD6C00638663 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF52035FD6C00638663 /* Document.m */; };
+		286C6EF92035FD6C00638663 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EF72035FD6C00638663 /* Document.xib */; };
+		286C6EFB2035FD6C00638663 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EFA2035FD6C00638663 /* Assets.xcassets */; };
+		286C6EFE2035FD6C00638663 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EFC2035FD6C00638663 /* MainMenu.xib */; };
+		286C6F012035FD6C00638663 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6F002035FD6C00638663 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		286C6EEE2035FD6C00638663 /* MCPlayerSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCPlayerSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		286C6EF12035FD6C00638663 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		286C6EF22035FD6C00638663 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		286C6EF42035FD6C00638663 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		286C6EF52035FD6C00638663 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		286C6EF82035FD6C00638663 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		286C6EFA2035FD6C00638663 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		286C6EFD2035FD6C00638663 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		286C6EFF2035FD6C00638663 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		286C6F002035FD6C00638663 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		286C6F022035FD6C00638663 /* MCPlayerSwitcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MCPlayerSwitcher.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		286C6EEB2035FD6C00638663 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		286C6EE52035FD6C00638663 = {
+			isa = PBXGroup;
+			children = (
+				286C6EF02035FD6C00638663 /* MCPlayerSwitcher */,
+				286C6EEF2035FD6C00638663 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		286C6EEF2035FD6C00638663 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				286C6EEE2035FD6C00638663 /* MCPlayerSwitcher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		286C6EF02035FD6C00638663 /* MCPlayerSwitcher */ = {
+			isa = PBXGroup;
+			children = (
+				286C6EF12035FD6C00638663 /* AppDelegate.h */,
+				286C6EF22035FD6C00638663 /* AppDelegate.m */,
+				286C6EF42035FD6C00638663 /* Document.h */,
+				286C6EF52035FD6C00638663 /* Document.m */,
+				286C6EF72035FD6C00638663 /* Document.xib */,
+				286C6EFA2035FD6C00638663 /* Assets.xcassets */,
+				286C6EFC2035FD6C00638663 /* MainMenu.xib */,
+				286C6EFF2035FD6C00638663 /* Info.plist */,
+				286C6F002035FD6C00638663 /* main.m */,
+				286C6F022035FD6C00638663 /* MCPlayerSwitcher.entitlements */,
+			);
+			path = MCPlayerSwitcher;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		286C6EED2035FD6C00638663 /* MCPlayerSwitcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 286C6F052035FD6C00638663 /* Build configuration list for PBXNativeTarget "MCPlayerSwitcher" */;
+			buildPhases = (
+				286C6EEA2035FD6C00638663 /* Sources */,
+				286C6EEB2035FD6C00638663 /* Frameworks */,
+				286C6EEC2035FD6C00638663 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MCPlayerSwitcher;
+			productName = MCPlayerSwitcher;
+			productReference = 286C6EEE2035FD6C00638663 /* MCPlayerSwitcher.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		286C6EE62035FD6C00638663 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = namedfork;
+				TargetAttributes = {
+					286C6EED2035FD6C00638663 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 286C6EE92035FD6C00638663 /* Build configuration list for PBXProject "MCPlayerSwitcher" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 286C6EE52035FD6C00638663;
+			productRefGroup = 286C6EEF2035FD6C00638663 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				286C6EED2035FD6C00638663 /* MCPlayerSwitcher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		286C6EEC2035FD6C00638663 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				286C6EFB2035FD6C00638663 /* Assets.xcassets in Resources */,
+				286C6EF92035FD6C00638663 /* Document.xib in Resources */,
+				286C6EFE2035FD6C00638663 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		286C6EEA2035FD6C00638663 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				286C6EF62035FD6C00638663 /* Document.m in Sources */,
+				286C6F012035FD6C00638663 /* main.m in Sources */,
+				286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		286C6EF72035FD6C00638663 /* Document.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				286C6EF82035FD6C00638663 /* Base */,
+			);
+			name = Document.xib;
+			sourceTree = "<group>";
+		};
+		286C6EFC2035FD6C00638663 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				286C6EFD2035FD6C00638663 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		286C6F032035FD6C00638663 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		286C6F042035FD6C00638663 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		286C6F062035FD6C00638663 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MCPlayerSwitcher/MCPlayerSwitcher.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UJXNDZ5TNU;
+				INFOPLIST_FILE = MCPlayerSwitcher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.namedfork.MCPlayerSwitcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		286C6F072035FD6C00638663 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MCPlayerSwitcher/MCPlayerSwitcher.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UJXNDZ5TNU;
+				INFOPLIST_FILE = MCPlayerSwitcher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.namedfork.MCPlayerSwitcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		286C6EE92035FD6C00638663 /* Build configuration list for PBXProject "MCPlayerSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				286C6F032035FD6C00638663 /* Debug */,
+				286C6F042035FD6C00638663 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		286C6F052035FD6C00638663 /* Build configuration list for PBXNativeTarget "MCPlayerSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				286C6F062035FD6C00638663 /* Debug */,
+				286C6F072035FD6C00638663 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 286C6EE62035FD6C00638663 /* Project object */;
+}
