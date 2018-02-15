@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF22035FD6C00638663 /* AppDelegate.m */; };
-		286C6EF62035FD6C00638663 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF52035FD6C00638663 /* Document.m */; };
+		286C6EF62035FD6C00638663 /* MCWorld.mm in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF52035FD6C00638663 /* MCWorld.mm */; };
 		286C6EF92035FD6C00638663 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EF72035FD6C00638663 /* Document.xib */; };
 		286C6EFB2035FD6C00638663 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EFA2035FD6C00638663 /* Assets.xcassets */; };
 		286C6EFE2035FD6C00638663 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EFC2035FD6C00638663 /* MainMenu.xib */; };
@@ -19,8 +19,8 @@
 		286C6EEE2035FD6C00638663 /* MCPlayerSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCPlayerSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		286C6EF12035FD6C00638663 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		286C6EF22035FD6C00638663 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		286C6EF42035FD6C00638663 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
-		286C6EF52035FD6C00638663 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		286C6EF42035FD6C00638663 /* MCWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCWorld.h; sourceTree = "<group>"; };
+		286C6EF52035FD6C00638663 /* MCWorld.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MCWorld.mm; sourceTree = "<group>"; };
 		286C6EF82035FD6C00638663 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
 		286C6EFA2035FD6C00638663 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		286C6EFD2035FD6C00638663 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -61,8 +61,8 @@
 			children = (
 				286C6EF12035FD6C00638663 /* AppDelegate.h */,
 				286C6EF22035FD6C00638663 /* AppDelegate.m */,
-				286C6EF42035FD6C00638663 /* Document.h */,
-				286C6EF52035FD6C00638663 /* Document.m */,
+				286C6EF42035FD6C00638663 /* MCWorld.h */,
+				286C6EF52035FD6C00638663 /* MCWorld.mm */,
 				286C6EF72035FD6C00638663 /* Document.xib */,
 				286C6EFA2035FD6C00638663 /* Assets.xcassets */,
 				286C6EFC2035FD6C00638663 /* MainMenu.xib */,
@@ -144,7 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				286C6EF62035FD6C00638663 /* Document.m in Sources */,
+				286C6EF62035FD6C00638663 /* MCWorld.mm in Sources */,
 				286C6F012035FD6C00638663 /* main.m in Sources */,
 				286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */,
 			);

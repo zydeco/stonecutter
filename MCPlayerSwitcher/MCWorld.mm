@@ -6,13 +6,13 @@
 //  Copyright © 2018 namedfork. All rights reserved.
 //
 
-#import "Document.h"
+#import "MCWorld.h"
 
-@interface Document ()
+@interface MCWorld ()
 
 @end
 
-@implementation Document
+@implementation MCWorld
 
 - (instancetype)init {
     self = [super init];
