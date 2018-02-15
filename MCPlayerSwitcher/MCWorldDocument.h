@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MCWorld : NSDocument
+@interface MCWorldDocument : NSDocument
 
 
 @end

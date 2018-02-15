@@ -6,7 +6,7 @@
 //  Copyright © 2018 namedfork. All rights reserved.
 //
 
-#import "MCWorld.h"
+#import "MCWorldDocument.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
 #include "leveldb/cache.h"
@@ -18,11 +18,11 @@
 #include "leveldb/zlib_compressor.h"
 #include "libzippp.h"
 
-@interface MCWorld ()
+@interface MCWorldDocument ()
 
 @end
 
-@implementation MCWorld
+@implementation MCWorldDocument
 
 - (instancetype)init {
     self = [super init];
