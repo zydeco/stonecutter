@@ -1,3 +1,9 @@
 [submodule "leveldb-mcpe"]
 	path = leveldb-mcpe
 	url = git@github.com:Mojang/leveldb-mcpe.git
+[submodule "libzippp"]
+	path = libzippp
+	url = git@github.com:ctabin/libzippp.git
+[submodule "libzip"]
+	path = libzip
+	url = git@github.com:nih-at/libzip.git

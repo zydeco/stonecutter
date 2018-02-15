@@ -16,6 +16,7 @@
 #include "leveldb/write_batch.h"
 #include "leveldb/decompress_allocator.h"
 #include "leveldb/zlib_compressor.h"
+#include "libzippp.h"
 
 @interface MCWorld ()
 
