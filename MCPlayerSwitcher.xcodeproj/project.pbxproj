@@ -15,6 +15,7 @@
 		286C6F012035FD6C00638663 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6F002035FD6C00638663 /* main.m */; };
 		286C6FA9203601B800638663 /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C6FA72036000A00638663 /* libleveldb.a */; };
 		286C6FAD203602B100638663 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C6FAC203602B100638663 /* libz.tbd */; };
+		286C6FB3203609D500638663 /* DocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6FB2203609D500638663 /* DocumentController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,8 @@
 		286C6FA62035FFFF00638663 /* two_level_iterator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = two_level_iterator.cc; sourceTree = "<group>"; };
 		286C6FA72036000A00638663 /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = "out-static/libleveldb.a"; sourceTree = "<group>"; };
 		286C6FAC203602B100638663 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		286C6FB1203609D500638663 /* DocumentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocumentController.h; sourceTree = "<group>"; };
+		286C6FB2203609D500638663 /* DocumentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DocumentController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +226,8 @@
 				286C6EFF2035FD6C00638663 /* Info.plist */,
 				286C6F002035FD6C00638663 /* main.m */,
 				286C6F022035FD6C00638663 /* MCPlayerSwitcher.entitlements */,
+				286C6FB1203609D500638663 /* DocumentController.h */,
+				286C6FB2203609D500638663 /* DocumentController.m */,
 			);
 			path = MCPlayerSwitcher;
 			sourceTree = "<group>";
@@ -525,6 +530,7 @@
 			files = (
 				286C6EF62035FD6C00638663 /* MCWorld.mm in Sources */,
 				286C6F012035FD6C00638663 /* main.m in Sources */,
+				286C6FB3203609D500638663 /* DocumentController.m in Sources */,
 				286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

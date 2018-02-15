@@ -7,21 +7,41 @@
 //
 
 #import "AppDelegate.h"
+#import "DocumentController.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+{
+    DocumentController *documentController;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        // override NSDocumentController
+        documentController = [[DocumentController alloc] init];
+    }
+    return self;
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+
+}
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
 
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
+    return NO;
+}
+
+- (BOOL)applicationOpenUntitledFile:(NSApplication *)sender {
+    return NO;
+}
 
 @end

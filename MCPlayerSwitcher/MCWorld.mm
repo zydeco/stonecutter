@@ -7,6 +7,15 @@
 //
 
 #import "MCWorld.h"
+#include "leveldb/db.h"
+#include "leveldb/env.h"
+#include "leveldb/cache.h"
+#include "leveldb/filter_policy.h"
+#include "leveldb/slice.h"
+#include "leveldb/iterator.h"
+#include "leveldb/write_batch.h"
+#include "leveldb/decompress_allocator.h"
+#include "leveldb/zlib_compressor.h"
 
 @interface MCWorld ()
 
@@ -21,11 +30,6 @@
     }
     return self;
 }
-
-+ (BOOL)autosavesInPlace {
-    return YES;
-}
-
 
 - (NSString *)windowNibName {
     // Override returning the nib file name of the document
