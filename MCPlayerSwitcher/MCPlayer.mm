@@ -34,9 +34,15 @@
             auto item = i->as<nbt::tag_compound>();
             int16_t slot = static_cast<int16_t>(item["Slot"]);
             int16_t itemId = static_cast<int16_t>(item["id"]);
-            if (slot >= 9 && slot <= 17) {
-                hotbar[slot-9] = itemId;
+            if (slot < 9 || slot > 17) continue;
+            auto &tag = item["tag"];
+            if (tag) {
+                auto &ench = tag["ench"].as<nbt::tag_list>();
+                if (ench.size() > 0) {
+                    itemId *= -1;
+                }
             }
+            hotbar[slot-9] = itemId;
         }
         hotbarItems = [NSArray arrayWithObjects:@(hotbar[0]), @(hotbar[1]),
                        @(hotbar[2]), @(hotbar[3]), @(hotbar[4]), @(hotbar[5]),

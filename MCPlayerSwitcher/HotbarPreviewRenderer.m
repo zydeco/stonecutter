@@ -51,6 +51,13 @@
     NSImage *itemSheet = [NSImage imageNamed:@"items"];
     for (int i=0; i < hotbarItems.count; i++) {
         NSInteger itemID = hotbarItems[i].integerValue;
+        BOOL enchanted = NO;
+        if (itemID == 0) {
+            continue;
+        } else if (itemID < 0) {
+            enchanted = YES;
+            itemID *= -1;
+        }
         
         if (itemID >= 256) {
             // item
@@ -58,6 +65,10 @@
         } else {
             // block
             [blockSheet drawInRect:dstRect fromRect:NSMakeRect(0, 4807 - (itemID * 19), 19, 19) operation:NSCompositingOperationCopy fraction:1.0];
+        }
+        if (enchanted) {
+            [[[NSColor purpleColor] colorWithAlphaComponent:0.5] setFill];
+            NSRectFillUsingOperation(dstRect, NSCompositingOperationSourceAtop);
         }
         dstRect.origin.x += dstOffset;
     }
