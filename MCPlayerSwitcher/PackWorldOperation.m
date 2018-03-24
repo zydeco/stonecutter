@@ -108,7 +108,6 @@ void updateZipProgress(zip_t * zip, double progress, void *ud) {
         NSString *filePath = fileURL.path.stringByStandardizingPath;
         if ([filePath hasPrefix:basePath]) {
             NSString *entryName = [filePath substringFromIndex:basePath.length + 1];
-            NSLog(@"adding %@", entryName);
             
             struct zip_source *source = zip_source_file(zip, filePath.fileSystemRepresentation, 0, -1);
             if (source == NULL) {
@@ -124,8 +123,7 @@ void updateZipProgress(zip_t * zip, double progress, void *ud) {
                 return;
             }
         } else {
-            NSLog(@"Invalid save path!");
-            self.error = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:nil];
+            self.error = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:@{NSLocalizedFailureReasonErrorKey: @"Invalid path for entry"}];
             [self cancel];
         }
     }];
