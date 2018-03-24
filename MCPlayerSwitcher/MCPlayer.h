@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSUUID *uuid;
 @property (nonatomic, readonly) NSString *displayName;
+@property (nonatomic, readonly) NSArray<NSNumber*> *hotbarItems;
 
 - (instancetype)initWithKey:(NSString*)key data:(NSData*)data;
 

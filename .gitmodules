@@ -7,3 +7,6 @@
 [submodule "libzip"]
 	path = libzip
 	url = git@github.com:nih-at/libzip.git
+[submodule "libnbtplusplus"]
+	path = libnbtplusplus
+	url = git@github.com:ljfa-ag/libnbtplusplus.git
