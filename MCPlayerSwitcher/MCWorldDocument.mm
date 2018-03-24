@@ -22,10 +22,14 @@
 #import "ProgressWindow.h"
 #import "UnpackWorldOperation.h"
 #import "PackWorldOperation.h"
+#import "MCPlayer.h"
 
 using namespace libzippp;
+using namespace leveldb;
 
-@interface MCWorldDocument ()
+NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
+
+@interface MCWorldDocument () <NSTableViewDelegate>
 
 @end
 
@@ -34,6 +38,8 @@ using namespace libzippp;
     NSURL *worldDirectory;
     UnpackWorldOperation *unpackOperation;
     PackWorldOperation *packOperation;
+    DB *db;
+    NSArray<MCPlayer*> *players;
 }
 
 - (instancetype)init {
@@ -55,6 +61,7 @@ using namespace libzippp;
 - (void)makeWindowControllers {
     [super makeWindowControllers];
     [self performSelector:@selector(showProgressForWorldOperation:) withObject:unpackOperation afterDelay:0.0];
+    [self.tabView selectFirstTabViewItem:nil];
 }
 
 #pragma mark - Progress UI
@@ -66,6 +73,9 @@ using namespace libzippp;
         [self.windowForSheet beginSheet:_progressWindow completionHandler:^(NSModalResponse returnCode) {
             if (operation.error) {
                 [self giveUpWithError:operation.error];
+            } else if (operation == unpackOperation) {
+                [self.loadingPlayersIndicator startAnimation:nil];
+                [self openWorld];
             }
         }];
         [operation addObserver:self forKeyPath:@"finished" options:0 context:NULL];
@@ -75,8 +85,14 @@ using namespace libzippp;
 }
 
 - (void)giveUpWithError:(NSError*)error {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:_cmd withObject:error waitUntilDone:NO];
+        return;
+    }
     NSAlert *alert = [NSAlert alertWithError:error];
-    alert.alertStyle = NSAlertStyleWarning;
+    if (self.windowForSheet.attachedSheet) {
+        alert.alertStyle = NSAlertStyleWarning;
+    }
     [alert beginSheetModalForWindow:self.windowForSheet completionHandler:^(NSModalResponse returnCode) {
         [self close];
     }];
@@ -162,12 +178,77 @@ using namespace libzippp;
 
 - (void)dealloc {
     [self cleanupTemporaryFiles];
+    if (db) {
+        delete db;
+    }
 }
 
 - (void)cleanupTemporaryFiles {
     if (worldDirectory) {
         [[NSFileManager defaultManager] removeItemAtURL:worldDirectory error:NULL];
     }
+}
+
+#pragma mark - World
+
+- (BOOL)checkOk:(Status)status {
+    if (status.ok()) {
+        return YES;
+    } else {
+        NSError *error = [NSError errorWithDomain:LevelDBErrorDomain code:status.code() userInfo:@{NSLocalizedFailureReasonErrorKey: @(status.ToString().c_str())}];
+        [self giveUpWithError:error];
+        return NO;
+    }
+}
+
+- (void)openWorld {
+    Options options;
+    options.filter_policy = NewBloomFilterPolicy(10);
+    options.block_cache = NewLRUCache(40 * 1024 * 1024);
+    options.write_buffer_size = 4 * 1024 * 1024;
+    options.compressors[0] = new ZlibCompressorRaw(-1);
+    options.compressors[1] = new ZlibCompressor();
+    
+    NSURL *dbDirectory = [worldDirectory URLByAppendingPathComponent:@"db"];
+    if ([self checkOk: DB::Open(options, dbDirectory.fileSystemRepresentation, &db)]) {
+        [self performSelectorInBackground:@selector(listPlayers) withObject:nil];
+    }
+}
+
+#pragma mark - Player List
+
+- (void)listPlayers {
+    ReadOptions readOptions;
+    readOptions.decompress_allocator = new DecompressAllocator();
+    // iterate through everything
+    readOptions.snapshot = db->GetSnapshot();
+    Iterator *it = db->NewIterator(readOptions);
+    NSMutableArray<MCPlayer*> *newPlayers = [NSMutableArray arrayWithCapacity:4];
+    for (it->SeekToFirst(); it->Valid(); it->Next()) {
+        BOOL isLocalPlayer = it->key().size() == 13 && memcmp(it->key().data(), "~local_player", 13) == 0;
+        BOOL isOtherPlayer = it->key().size() == 43 && strncmp(it->key().data(), "player_", 7) == 0;
+        if (isLocalPlayer || isOtherPlayer) {
+            NSString *playerKey = @(it->key().ToString().c_str());
+            NSData *playerData = [NSData dataWithBytes:it->value().data() length:it->value().size()];
+            [newPlayers addObject:[[MCPlayer alloc] initWithKey:playerKey data:playerData]];
+        }
+    }
+    delete it;
+    db->ReleaseSnapshot(readOptions.snapshot);
+    
+    [self performSelectorOnMainThread:@selector(showPlayers:) withObject:newPlayers waitUntilDone:NO];
+}
+
+- (void)showPlayers:(NSArray<MCPlayer*>*)newPlayers {
+    [self.loadingPlayersIndicator stopAnimation:nil];
+    [self willChangeValueForKey:@"players"];
+    players = newPlayers;
+    [self didChangeValueForKey:@"players"];
+    [self.tabView selectTabViewItemAtIndex:1];
+}
+
+- (NSArray<MCPlayer *> *)players {
+    return players;
 }
 
 @end

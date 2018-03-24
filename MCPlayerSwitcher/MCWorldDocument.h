@@ -8,11 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ProgressWindow;
+@class ProgressWindow, MCPlayer;
 
 @interface MCWorldDocument : NSDocument
 
-@property (nonatomic, strong) IBOutlet ProgressWindow *progressWindow;
+@property (nonatomic, weak) IBOutlet ProgressWindow *progressWindow;
+@property (nonatomic, weak) IBOutlet NSTabView *tabView;
+
+@property (nonatomic, weak) IBOutlet NSProgressIndicator *loadingPlayersIndicator;
+
+@property (nonatomic, readonly) NSArray<MCPlayer*> *players;
+@property (nonatomic, weak) IBOutlet NSTableView *playersTableView;
+@property (nonatomic, weak) IBOutlet NSTextField *localPlayerNewUUIDField;
 
 @end
 
