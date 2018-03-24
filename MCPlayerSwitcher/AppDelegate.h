@@ -10,6 +10,6 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
++ (instancetype)sharedInstance;
 
 @end
-

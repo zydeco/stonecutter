@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		280B9622204B076400FC7F20 /* liblibzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C70ED20361B2F00638663 /* liblibzip.a */; };
+		280B9625204B157200FC7F20 /* UnpackWorldOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */; };
 		286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF22035FD6C00638663 /* AppDelegate.m */; };
 		286C6EF62035FD6C00638663 /* MCWorldDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF52035FD6C00638663 /* MCWorldDocument.mm */; };
 		286C6EF92035FD6C00638663 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EF72035FD6C00638663 /* Document.xib */; };
@@ -137,6 +139,9 @@
 		286C71EE20361FA900638663 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 286C71EC20361FA800638663 /* config.h */; };
 		286C71EF20361FA900638663 /* zipconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 286C71ED20361FA900638663 /* zipconf.h */; };
 		286C71F4203621C700638663 /* liblibzippp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C6FBA20361A3F00638663 /* liblibzippp.a */; };
+		286C71F920375C6F00638663 /* ProgressWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C71F820375C6F00638663 /* ProgressWindow.m */; };
+		28FF91802065B87A00A2A866 /* PackWorldOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FF917F2065B87A00A2A866 /* PackWorldOperation.m */; };
+		28FF91832065BB9800A2A866 /* WorldOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FF91822065BB9800A2A866 /* WorldOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +169,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		280B9623204B157100FC7F20 /* UnpackWorldOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnpackWorldOperation.h; sourceTree = "<group>"; };
+		280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UnpackWorldOperation.mm; sourceTree = "<group>"; };
 		286C6EEE2035FD6C00638663 /* MCPlayerSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCPlayerSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		286C6EF12035FD6C00638663 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		286C6EF22035FD6C00638663 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -438,6 +445,13 @@
 		286C716F20361BAD00638663 /* zip_get_file_comment.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip_get_file_comment.c; sourceTree = "<group>"; };
 		286C71EC20361FA800638663 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = libzip/xcode/config.h; sourceTree = SOURCE_ROOT; };
 		286C71ED20361FA900638663 /* zipconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zipconf.h; path = libzip/xcode/zipconf.h; sourceTree = SOURCE_ROOT; };
+		286C71F720375C6F00638663 /* ProgressWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressWindow.h; sourceTree = "<group>"; };
+		286C71F820375C6F00638663 /* ProgressWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressWindow.m; sourceTree = "<group>"; };
+		28FF917D2065B46200A2A866 /* RSWeakifySelf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSWeakifySelf.h; sourceTree = "<group>"; };
+		28FF917E2065B87A00A2A866 /* PackWorldOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackWorldOperation.h; sourceTree = "<group>"; };
+		28FF917F2065B87A00A2A866 /* PackWorldOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackWorldOperation.m; sourceTree = "<group>"; };
+		28FF91812065BB9800A2A866 /* WorldOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldOperation.h; sourceTree = "<group>"; };
+		28FF91822065BB9800A2A866 /* WorldOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,6 +459,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				280B9622204B076400FC7F20 /* liblibzip.a in Frameworks */,
 				286C6FAD203602B100638663 /* libz.tbd in Frameworks */,
 				286C6FA9203601B800638663 /* libleveldb.a in Frameworks */,
 				286C71F4203621C700638663 /* liblibzippp.a in Frameworks */,
@@ -505,6 +520,15 @@
 				286C6F022035FD6C00638663 /* MCPlayerSwitcher.entitlements */,
 				286C6FB1203609D500638663 /* DocumentController.h */,
 				286C6FB2203609D500638663 /* DocumentController.m */,
+				286C71F720375C6F00638663 /* ProgressWindow.h */,
+				286C71F820375C6F00638663 /* ProgressWindow.m */,
+				28FF91812065BB9800A2A866 /* WorldOperation.h */,
+				28FF91822065BB9800A2A866 /* WorldOperation.m */,
+				280B9623204B157100FC7F20 /* UnpackWorldOperation.h */,
+				280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */,
+				28FF917E2065B87A00A2A866 /* PackWorldOperation.h */,
+				28FF917F2065B87A00A2A866 /* PackWorldOperation.m */,
+				28FF917D2065B46200A2A866 /* RSWeakifySelf.h */,
 			);
 			path = MCPlayerSwitcher;
 			sourceTree = "<group>";
@@ -1012,9 +1036,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FF91802065B87A00A2A866 /* PackWorldOperation.m in Sources */,
+				286C71F920375C6F00638663 /* ProgressWindow.m in Sources */,
 				286C6EF62035FD6C00638663 /* MCWorldDocument.mm in Sources */,
 				286C6F012035FD6C00638663 /* main.m in Sources */,
+				28FF91832065BB9800A2A866 /* WorldOperation.m in Sources */,
 				286C6FB3203609D500638663 /* DocumentController.m in Sources */,
+				280B9625204B157200FC7F20 /* UnpackWorldOperation.mm in Sources */,
 				286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1302,6 +1330,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/leveldb-mcpe/include",
 					"$(SRCROOT)/libzippp/src",
+					"$(SRCROOT)/libzip/lib",
+					"$(SRCROOT)/libzip/xcode",
 				);
 				INFOPLIST_FILE = MCPlayerSwitcher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1333,6 +1363,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/leveldb-mcpe/include",
 					"$(SRCROOT)/libzippp/src",
+					"$(SRCROOT)/libzip/lib",
+					"$(SRCROOT)/libzip/xcode",
 				);
 				INFOPLIST_FILE = MCPlayerSwitcher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

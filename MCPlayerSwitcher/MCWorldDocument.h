@@ -8,8 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class ProgressWindow;
+
 @interface MCWorldDocument : NSDocument
 
+@property (nonatomic, strong) IBOutlet ProgressWindow *progressWindow;
 
 @end
 

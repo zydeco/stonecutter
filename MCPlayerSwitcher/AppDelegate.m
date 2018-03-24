@@ -18,14 +18,17 @@
     DocumentController *documentController;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         // override NSDocumentController
         documentController = [[DocumentController alloc] init];
     }
     return self;
+}
+
++ (instancetype)sharedInstance {
+    return NSApp.delegate;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
