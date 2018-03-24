@@ -52,9 +52,7 @@
     for (int i=0; i < hotbarItems.count; i++) {
         NSInteger itemID = hotbarItems[i].integerValue;
         BOOL enchanted = NO;
-        if (itemID == 0) {
-            continue;
-        } else if (itemID < 0) {
+        if (itemID < 0) {
             enchanted = YES;
             itemID *= -1;
         }
@@ -62,7 +60,7 @@
         if (itemID >= 256) {
             // item
             [itemSheet drawInRect:dstRect fromRect:NSMakeRect(0, (itemID - 256) * 16, 16, 16) operation:NSCompositingOperationCopy fraction:1.0];
-        } else {
+        } else if (itemID > 0) {
             // block
             [blockSheet drawInRect:dstRect fromRect:NSMakeRect(0, 4807 - (itemID * 19), 19, 19) operation:NSCompositingOperationCopy fraction:1.0];
         }
