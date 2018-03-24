@@ -116,7 +116,6 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError * _Nullable __autoreleasing *)outError {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    NSLog(@"%@", NSStringFromSelector(_cmd));
     // check zip
     // might not have directory entries, so enumerate entries
     ZipArchive zf(url.fileSystemRepresentation);
