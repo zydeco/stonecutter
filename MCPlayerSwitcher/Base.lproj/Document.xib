@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="loadingPlayersIndicator" destination="aYd-3w-Lor" id="sgr-tz-bMh"/>
                 <outlet property="localPlayerNewUUIDField" destination="BMB-ft-6AT" id="i1W-Nd-DJg"/>
+                <outlet property="playersTableView" destination="Dq6-1q-f5G" id="5a1-wf-qLc"/>
                 <outlet property="progressWindow" destination="VuE-pY-XNY" id="S5C-IZ-MYc"/>
                 <outlet property="tabView" destination="7e4-NF-9nI" id="TBn-ra-Ng2"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
@@ -191,6 +192,7 @@
                                                         </tableColumns>
                                                         <connections>
                                                             <binding destination="sNq-5T-Qcr" name="content" keyPath="arrangedObjects" id="iff-YW-uhK"/>
+                                                            <outlet property="delegate" destination="-2" id="ppF-do-FTw"/>
                                                         </connections>
                                                     </tableView>
                                                 </subviews>
