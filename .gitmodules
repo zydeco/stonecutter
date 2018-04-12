@@ -10,3 +10,6 @@
 [submodule "libnbtplusplus"]
 	path = libnbtplusplus
 	url = git@github.com:ljfa-ag/libnbtplusplus.git
+[submodule "RakNetWrapper"]
+	path = RakNetWrapper
+	url = git@github.com:ss-abramchuk/RakNetWrapper.git

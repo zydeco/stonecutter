@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2805C99F207C0EA400080072 /* RakNetWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2805C995207C0E8E00080072 /* RakNetWrapper.framework */; };
 		280B9622204B076400FC7F20 /* liblibzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C70ED20361B2F00638663 /* liblibzip.a */; };
 		280B9625204B157200FC7F20 /* UnpackWorldOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */; };
 		282C82962066DE1100F3E2CA /* HotbarPreviewRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */; };
@@ -182,6 +183,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2805C992207C0E8E00080072 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C99C02971D60FAE900DBA190;
+			remoteInfo = "RakNetWrapper iOS";
+		};
+		2805C994207C0E8E00080072 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C957C3611EA7871C00EED4C0;
+			remoteInfo = "RakNetWrapper macOS";
+		};
+		2805C996207C0E8E00080072 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C907CA8D1D96CFA200B942FA;
+			remoteInfo = "RakNetWrapper iOS Tests";
+		};
+		2805C998207C0E8E00080072 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C957C3711EA7892200EED4C0;
+			remoteInfo = "RakNetWrapper macOS Tests";
+		};
+		2805C9A0207C0EAF00080072 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C957C2351EA7871C00EED4C0;
+			remoteInfo = "RakNetWrapper macOS";
+		};
 		286C6FAA203601C100638663 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 286C6EE62035FD6C00638663 /* Project object */;
@@ -574,9 +610,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2805C98C207C0E8E00080072 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2805C993207C0E8E00080072 /* RakNetWrapper.framework */,
+				2805C995207C0E8E00080072 /* RakNetWrapper.framework */,
+				2805C997207C0E8E00080072 /* RakNetWrapper iOS Tests.xctest */,
+				2805C999207C0E8E00080072 /* RakNetWrapper macOS Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		286C6EE52035FD6C00638663 = {
 			isa = PBXGroup;
 			children = (
+				2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */,
 				286C6EF02035FD6C00638663 /* MCPlayerSwitcher */,
 				286C6F0C2035FEE900638663 /* LevelDB */,
 				286C6FC920361A8C00638663 /* libzip */,
@@ -1141,6 +1189,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2805C9A1207C0EAF00080072 /* PBXTargetDependency */,
 				28FF91FE2066ADFD00A2A866 /* PBXTargetDependency */,
 				286C6FAB203601C100638663 /* PBXTargetDependency */,
 				286C71F3203621BF00638663 /* PBXTargetDependency */,
@@ -1244,6 +1293,12 @@
 			mainGroup = 286C6EE52035FD6C00638663;
 			productRefGroup = 286C6EEF2035FD6C00638663 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2805C98C207C0E8E00080072 /* Products */;
+					ProjectRef = 2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				286C6EED2035FD6C00638663 /* MCPlayerSwitcher */,
@@ -1254,6 +1309,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2805C993207C0E8E00080072 /* RakNetWrapper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RakNetWrapper.framework;
+			remoteRef = 2805C992207C0E8E00080072 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2805C995207C0E8E00080072 /* RakNetWrapper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RakNetWrapper.framework;
+			remoteRef = 2805C994207C0E8E00080072 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2805C997207C0E8E00080072 /* RakNetWrapper iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RakNetWrapper iOS Tests.xctest";
+			remoteRef = 2805C996207C0E8E00080072 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2805C999207C0E8E00080072 /* RakNetWrapper macOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RakNetWrapper macOS Tests.xctest";
+			remoteRef = 2805C998207C0E8E00080072 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		286C6EEC2035FD6C00638663 /* Resources */ = {
@@ -1436,6 +1522,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2805C9A1207C0EAF00080072 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RakNetWrapper macOS";
+			targetProxy = 2805C9A0207C0EAF00080072 /* PBXContainerItemProxy */;
+		};
 		286C6FAB203601C100638663 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 286C6F082035FE8C00638663 /* Leveldb */;
