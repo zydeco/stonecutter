@@ -34,7 +34,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Loading Players" identifier="loading" id="9Do-z2-RnW">
-                                <view key="view" ambiguous="YES" id="0v3-Lf-iuR">
+                                <view key="view" id="0v3-Lf-iuR">
                                     <rect key="frame" x="0.0" y="0.0" width="550" height="326"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -55,7 +55,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Select Player" identifier="select" id="6Xr-nn-JQ0">
-                                <view key="view" id="ojG-5g-mcp">
+                                <view key="view" ambiguous="YES" id="ojG-5g-mcp">
                                     <rect key="frame" x="0.0" y="0.0" width="550" height="326"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -199,7 +199,7 @@
                                                 </subviews>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="L0M-Bv-bYg">
-                                                <rect key="frame" x="1" y="148" width="497" height="16"/>
+                                                <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="JRA-EB-8zt">
@@ -244,6 +244,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="showServer:" target="-1" id="Qz9-9b-KkN"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>

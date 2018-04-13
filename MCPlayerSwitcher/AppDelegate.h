@@ -10,6 +10,10 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property (nonatomic, strong) IBOutlet NSWindow *serverWindow;
+@property (nonatomic, strong) IBOutlet NSTextView *serverLogView;
+
 + (instancetype)sharedInstance;
+- (void)showServer;
 
 @end

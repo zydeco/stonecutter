@@ -25,12 +25,17 @@ typedef enum : uint8_t {
 {
     self = [super init];
     if (self) {
-        
+        self.name = [[NSHost currentHost] localizedName];
+        self.worldName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey];
     }
     return self;
 }
 
 - (void)run {
+    if (server != nil) {
+        NSLog(@"Server already running");
+        return;
+    }
     server = [RNPeerInterface new];
     RNSocketDescriptor *descriptor = [[RNSocketDescriptor alloc] initWithPort:19132 andAddress:nil];
     NSError *error = nil;
@@ -38,36 +43,43 @@ typedef enum : uint8_t {
     [server startupWithMaxConnectionsAllowed:8 socketDescriptors:@[descriptor] error:&error];
     server.maximumIncomingConnections = 8;
     
-    NSLog(@"running server %llx", server.myGUID);
-    
     RNBitStream *response = [RNBitStream new];
     [response writeString:[@[@"MCPE",
-                             [[NSHost currentHost] localizedName],
+                             self.name,
                              @223,
                              @"1.12.15",
                              @1,
                              @(server.maximumNumberOfPeers),
                              @(server.myGUID),
-                             [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey],
+                             self.worldName,
                              @"Creative",
                              @""
                              ] componentsJoinedByString:@";"]];
     server.offlinePingResponse = response.data;
     
+    if ([self.delegate respondsToSelector:@selector(mcServerDidStart:)]) {
+        [self.delegate mcServerDidStart:self];
+    }
+    
+    NSTimeInterval tickTime = 1.0 / 20.0;
+    NSDate *nextTick = [NSDate dateWithTimeIntervalSinceNow:tickTime];
     while (server.isActive) {
         RNPacket *packet = [server receive];
         if (packet) {
             [self handlePacket:packet];
         } else {
-            [NSThread sleepForTimeInterval:1.0 / 60.0];
+            [NSThread sleepUntilDate:nextTick];
         }
     }
     
-    NSLog(@"Server is no longer active.");
+    if ([self.delegate respondsToSelector:@selector(mcServerDidStop:)]) {
+        [self.delegate mcServerDidStop:self];
+    }
 }
 
 - (void)stop {
     [server shutdownWithDuration:1500];
+    server = nil;
 }
 
 - (void)handlePacket:(RNPacket *)packet {
@@ -130,10 +142,9 @@ typedef enum : uint8_t {
         NSDictionary *token = [self decodeJWTPayload:link];
         NSString *displayName = [token valueForKeyPath:@"extraData.displayName"];
         NSString *identity = [token valueForKeyPath:@"extraData.identity"];
-        if (displayName && identity) {
+        if (displayName && identity && [self.delegate respondsToSelector:@selector(mcServer:didLogInUser:withDisplayName:)]) {
             [self.delegate mcServer:self didLogInUser:[[NSUUID alloc] initWithUUIDString:identity] withDisplayName:displayName];
         }
-        
     }
     
     // can't be bothered to send a disconnect message

@@ -21,5 +21,7 @@
 @property (nonatomic, weak) IBOutlet NSTableView *playersTableView;
 @property (nonatomic, weak) IBOutlet NSTextField *localPlayerNewUUIDField;
 
+- (IBAction)showServer:(id)sender;
+
 @end
 

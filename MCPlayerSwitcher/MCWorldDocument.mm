@@ -250,4 +250,8 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     return players;
 }
 
+- (void)showServer:(id)sender {
+    [[AppDelegate sharedInstance] showServer];
+}
+
 @end
