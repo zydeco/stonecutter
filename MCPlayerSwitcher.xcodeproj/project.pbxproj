@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2805C99F207C0EA400080072 /* RakNetWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2805C995207C0E8E00080072 /* RakNetWrapper.framework */; };
+		2805C9A4207C0EFD00080072 /* MCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9A3207C0EFD00080072 /* MCServer.m */; };
+		2805C9AB207FD0CD00080072 /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9AA207FD0CD00080072 /* NSData+ZLib.m */; };
+		2805C9AE208127D000080072 /* RNBitStream+VarData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9AD208127D000080072 /* RNBitStream+VarData.m */; };
 		280B9622204B076400FC7F20 /* liblibzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C70ED20361B2F00638663 /* liblibzip.a */; };
 		280B9625204B157200FC7F20 /* UnpackWorldOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */; };
 		282C82962066DE1100F3E2CA /* HotbarPreviewRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */; };
@@ -249,6 +252,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RakNetWrapper.xcodeproj; path = RakNetWrapper/RakNetWrapper.xcodeproj; sourceTree = "<group>"; };
+		2805C9A2207C0EFC00080072 /* MCServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCServer.h; sourceTree = "<group>"; };
+		2805C9A3207C0EFD00080072 /* MCServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCServer.m; sourceTree = "<group>"; };
+		2805C9A9207FD0CD00080072 /* NSData+ZLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+ZLib.h"; sourceTree = "<group>"; };
+		2805C9AA207FD0CD00080072 /* NSData+ZLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+ZLib.m"; sourceTree = "<group>"; };
+		2805C9AC208127D000080072 /* RNBitStream+VarData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNBitStream+VarData.h"; sourceTree = "<group>"; };
+		2805C9AD208127D000080072 /* RNBitStream+VarData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RNBitStream+VarData.m"; sourceTree = "<group>"; };
 		280B9623204B157100FC7F20 /* UnpackWorldOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnpackWorldOperation.h; sourceTree = "<group>"; };
 		280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UnpackWorldOperation.mm; sourceTree = "<group>"; };
 		282C82942066DE1100F3E2CA /* HotbarPreviewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotbarPreviewRenderer.h; sourceTree = "<group>"; };
@@ -578,6 +588,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2805C99F207C0EA400080072 /* RakNetWrapper.framework in Frameworks */,
 				28FF91FF2066AE0800A2A866 /* liblibnbtplusplus.a in Frameworks */,
 				280B9622204B076400FC7F20 /* liblibzip.a in Frameworks */,
 				286C6FAD203602B100638663 /* libz.tbd in Frameworks */,
@@ -621,6 +632,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2805C9A5207FCEAC00080072 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				2805C9A2207C0EFC00080072 /* MCServer.h */,
+				2805C9A3207C0EFD00080072 /* MCServer.m */,
+				2805C9AC208127D000080072 /* RNBitStream+VarData.h */,
+				2805C9AD208127D000080072 /* RNBitStream+VarData.m */,
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
 		286C6EE52035FD6C00638663 = {
 			isa = PBXGroup;
 			children = (
@@ -649,6 +671,7 @@
 		286C6EF02035FD6C00638663 /* MCPlayerSwitcher */ = {
 			isa = PBXGroup;
 			children = (
+				2805C9A5207FCEAC00080072 /* Server */,
 				286C6EF12035FD6C00638663 /* AppDelegate.h */,
 				286C6EF22035FD6C00638663 /* AppDelegate.m */,
 				286C6EF42035FD6C00638663 /* MCWorldDocument.h */,
@@ -674,6 +697,8 @@
 				28FF91852066921D00A2A866 /* MCPlayer.mm */,
 				282C82942066DE1100F3E2CA /* HotbarPreviewRenderer.h */,
 				282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */,
+				2805C9A9207FD0CD00080072 /* NSData+ZLib.h */,
+				2805C9AA207FD0CD00080072 /* NSData+ZLib.m */,
 			);
 			path = MCPlayerSwitcher;
 			sourceTree = "<group>";
@@ -1360,6 +1385,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				28FF91802065B87A00A2A866 /* PackWorldOperation.m in Sources */,
+				2805C9A4207C0EFD00080072 /* MCServer.m in Sources */,
+				2805C9AB207FD0CD00080072 /* NSData+ZLib.m in Sources */,
 				286C71F920375C6F00638663 /* ProgressWindow.m in Sources */,
 				286C6EF62035FD6C00638663 /* MCWorldDocument.mm in Sources */,
 				286C6F012035FD6C00638663 /* main.m in Sources */,
@@ -1369,6 +1396,7 @@
 				282C82962066DE1100F3E2CA /* HotbarPreviewRenderer.m in Sources */,
 				280B9625204B157200FC7F20 /* UnpackWorldOperation.mm in Sources */,
 				286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */,
+				2805C9AE208127D000080072 /* RNBitStream+VarData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

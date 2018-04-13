@@ -8,14 +8,16 @@
 
 #import "AppDelegate.h"
 #import "DocumentController.h"
+#import "MCServer.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <MCServerDelegate>
 
 @end
 
 @implementation AppDelegate
 {
     DocumentController *documentController;
+    MCServer *server;
 }
 
 - (instancetype)init {
@@ -32,11 +34,18 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    server = [MCServer new];
+    server.delegate = self;
+    [server performSelectorInBackground:@selector(run) withObject:nil];
+}
 
+- (void)mcServer:(MCServer *)server didLogInUser:(NSUUID *)uuid withDisplayName:(NSString *)displayName {
+    NSLog(@"Login from %@: %@", uuid, displayName);
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    [server performSelector:@selector(stop)];
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
