@@ -8,8 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class DocumentController;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property (nonatomic, readonly) DocumentController *documentController;
 @property (nonatomic, strong) IBOutlet NSWindow *serverWindow;
 @property (nonatomic, strong) IBOutlet NSTextView *serverLogView;
 

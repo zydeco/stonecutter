@@ -10,4 +10,7 @@
 
 @interface DocumentController : NSDocumentController
 
+- (NSURL *)urlForUnpackingWorld:(NSURL*)worldURL;
+- (void)cleanupTemporaryFiles;
+
 @end

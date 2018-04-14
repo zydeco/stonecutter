@@ -16,7 +16,6 @@
 
 @implementation AppDelegate
 {
-    DocumentController *documentController;
     MCServer *server;
 }
 
@@ -24,7 +23,9 @@
     self = [super init];
     if (self) {
         // override NSDocumentController
-        documentController = [[DocumentController alloc] init];
+        _documentController = [[DocumentController alloc] init];
+        // what if several instances are running?
+        [_documentController cleanupTemporaryFiles];
     }
     return self;
 }

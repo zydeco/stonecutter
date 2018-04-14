@@ -23,6 +23,7 @@
 #import "UnpackWorldOperation.h"
 #import "PackWorldOperation.h"
 #import "MCPlayer.h"
+#import "DocumentController.h"
 
 using namespace libzippp;
 using namespace leveldb;
@@ -140,8 +141,11 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     zf.close();
     
     // create directory
-    worldDirectory = [fileManager URLForDirectory:NSItemReplacementDirectory inDomain:NSUserDomainMask appropriateForURL:url create:YES error:outError];
+    worldDirectory = [[AppDelegate sharedInstance].documentController urlForUnpackingWorld:url];
     if (worldDirectory == nil) {
+        return NO;
+    }
+    if (![fileManager createDirectoryAtURL:worldDirectory withIntermediateDirectories:YES attributes:nil error:outError]) {
         return NO;
     }
     NSLog(@"opening into %@", worldDirectory);
