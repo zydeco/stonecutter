@@ -81,7 +81,7 @@
         server = [MCServer new];
         server.delegate = self;
         [server performSelectorInBackground:@selector(run) withObject:nil];
-    }    
+    }
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
@@ -90,9 +90,4 @@
     }
 }
 
-- (void)windowDidBecomeKey:(NSNotification *)notification {
-    if (notification.object == self.serverWindow) {
-        
-    }
-}
 @end
