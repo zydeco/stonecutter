@@ -48,6 +48,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.hasUndoManager = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanupTemporaryFiles) name:NSApplicationWillTerminateNotification object:NSApp];
     }
     return self;
@@ -148,6 +149,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
         }
         if (db) {
             delete db;
+            db = nullptr;
         }
         [self cleanupTemporaryFiles];
     } else {
@@ -159,7 +161,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     if (![fileManager createDirectoryAtURL:worldDirectory withIntermediateDirectories:YES attributes:nil error:outError]) {
         return NO;
     }
-    NSLog(@"opening into %@", worldDirectory);
+    NSLog(@"opening into %@", worldDirectory.path);
     
     // extract zip in background
     unpackOperation = [UnpackWorldOperation new];
@@ -192,11 +194,18 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     return packOperation.error == nil;
 }
 
-- (void)dealloc {
-    [self cleanupTemporaryFiles];
+
+- (void)close {
+    if (listPlayersOperation.isExecuting) {
+        [listPlayersOperation cancel];
+        [listPlayersOperation waitUntilFinished];
+    }
     if (db) {
         delete db;
+        db = nullptr;
     }
+    [self cleanupTemporaryFiles];
+    [super close];
 }
 
 - (void)cleanupTemporaryFiles {
@@ -337,6 +346,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     if (![self checkOk:db->Put(leveldb::WriteOptions(), "~local_player", newLocalPlayerData)]) return;
     if (![self checkOk:db->Put(leveldb::WriteOptions(), "player_" + newUUIDforLocalPlayer, oldLocalPlayerData)]) return;
     db->ReleaseSnapshot(readOptions.snapshot);
+    [self updateChangeCount:NSChangeDone];
     
     [self listPlayers];
 }
