@@ -16,7 +16,6 @@
 @implementation MCPlayer
 {
     NSData *playerData;
-    NSArray<NSNumber*> *hotbarItems;
 }
 
 - (instancetype)initWithKey:(NSString*)key data:(NSData*)data {
@@ -29,6 +28,10 @@
         [self loadPlayerData];
     }
     return self;
+}
+
+- (BOOL)isLocalPlayer {
+    return _uuid == nil;
 }
 
 - (NSString *)displayName {

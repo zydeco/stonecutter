@@ -20,8 +20,10 @@
 @property (nonatomic, readonly) NSArray<MCPlayer*> *players;
 @property (nonatomic, weak) IBOutlet NSTableView *playersTableView;
 @property (nonatomic, weak) IBOutlet NSTextField *localPlayerNewUUIDField;
+@property (nonatomic, weak) IBOutlet NSButton *playersSaveButton;
 
 - (IBAction)showServer:(id)sender;
+- (IBAction)savePlayerChanges:(id)sender;
 
 @end
 

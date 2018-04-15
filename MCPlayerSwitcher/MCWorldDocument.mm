@@ -30,7 +30,7 @@ using namespace leveldb;
 
 NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 
-@interface MCWorldDocument () <NSTableViewDelegate>
+@interface MCWorldDocument () <NSTableViewDelegate, NSTextFieldDelegate>
 
 @end
 
@@ -254,8 +254,52 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     return players;
 }
 
+#pragma mark - Change UUID
+
+- (void)controlTextDidChange:(NSNotification *)notification {
+    if (notification.object == self.localPlayerNewUUIDField) {
+        [self validateInput];
+    }
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    if (notification.object == self.playersTableView) {
+        [self validateInput];
+    }
+}
+
+- (MCPlayer*)selectedPlayer {
+    NSInteger row = self.playersTableView.selectedRow;
+    if (row == -1) {
+        return nil;
+    } else {
+        return players[row];
+    }
+}
+
+- (NSUUID*)inputUUID {
+    NSString *uuidString = [self.localPlayerNewUUIDField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [[NSUUID alloc] initWithUUIDString:uuidString];
+}
+
+- (void)validateInput {
+    NSUUID *inputUUID = [self inputUUID];
+    MCPlayer *selectedPlayer = [self selectedPlayer];
+    if (selectedPlayer == nil || inputUUID == nil) {
+        return;
+    }
+    NSMutableArray* otherUUIDs = [[players valueForKeyPath:@"uuid"] mutableCopy];
+    [otherUUIDs removeObject:[NSNull null]];
+    [otherUUIDs removeObject:selectedPlayer.uuid];
+    self.playersSaveButton.enabled = inputUUID && !selectedPlayer.local && ![otherUUIDs containsObject:inputUUID];
+}
+
 - (void)showServer:(id)sender {
     [[AppDelegate sharedInstance] showServer];
+}
+
+- (void)savePlayerChanges:(id)sender {
+    
 }
 
 @end

@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="loadingPlayersIndicator" destination="aYd-3w-Lor" id="sgr-tz-bMh"/>
                 <outlet property="localPlayerNewUUIDField" destination="BMB-ft-6AT" id="i1W-Nd-DJg"/>
+                <outlet property="playersSaveButton" destination="Vx9-J0-eJs" id="JQH-mv-6ac"/>
                 <outlet property="playersTableView" destination="Dq6-1q-f5G" id="5a1-wf-qLc"/>
                 <outlet property="progressWindow" destination="VuE-pY-XNY" id="S5C-IZ-MYc"/>
                 <outlet property="tabView" destination="7e4-NF-9nI" id="TBn-ra-Ng2"/>
@@ -220,14 +221,6 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vx9-J0-eJs">
-                                            <rect key="frame" x="461" y="13" width="70" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nHp-ME-hkw">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BMB-ft-6AT">
                                             <rect key="frame" x="20" y="59" width="321" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -236,6 +229,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="delegate" destination="-2" id="yBk-bO-RJb"/>
+                                            </connections>
                                         </textField>
                                         <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="riU-ND-MEc">
                                             <rect key="frame" x="347" y="56" width="25" height="25"/>
@@ -246,6 +242,17 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="showServer:" target="-1" id="Qz9-9b-KkN"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vx9-J0-eJs">
+                                            <rect key="frame" x="444" y="13" width="87" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Change" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nHp-ME-hkw">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="savePlayerChanges:" target="-2" id="qQk-Bi-EX3"/>
                                             </connections>
                                         </button>
                                     </subviews>

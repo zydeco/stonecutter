@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) NSString *displayName;
 @property (nonatomic, readonly) NSArray<NSNumber*> *hotbarItems;
 @property (nonatomic, readonly) NSDictionary<NSString*,NSNumber*> *attributeValues;
+@property (nonatomic, readonly, getter=isLocalPlayer) BOOL local;
 
 - (instancetype)initWithKey:(NSString*)key data:(NSData*)data;
 
