@@ -11,6 +11,7 @@
 		2805C9A4207C0EFD00080072 /* MCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9A3207C0EFD00080072 /* MCServer.m */; };
 		2805C9AB207FD0CD00080072 /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9AA207FD0CD00080072 /* NSData+ZLib.m */; };
 		2805C9AE208127D000080072 /* RNBitStream+VarData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9AD208127D000080072 /* RNBitStream+VarData.m */; };
+		2805C9B920835ECB00080072 /* PerformActionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9B820835ECB00080072 /* PerformActionOperation.m */; };
 		280B9622204B076400FC7F20 /* liblibzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C70ED20361B2F00638663 /* liblibzip.a */; };
 		280B9625204B157200FC7F20 /* UnpackWorldOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */; };
 		282C82962066DE1100F3E2CA /* HotbarPreviewRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */; };
@@ -259,6 +260,8 @@
 		2805C9AA207FD0CD00080072 /* NSData+ZLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+ZLib.m"; sourceTree = "<group>"; };
 		2805C9AC208127D000080072 /* RNBitStream+VarData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNBitStream+VarData.h"; sourceTree = "<group>"; };
 		2805C9AD208127D000080072 /* RNBitStream+VarData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RNBitStream+VarData.m"; sourceTree = "<group>"; };
+		2805C9B720835ECB00080072 /* PerformActionOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformActionOperation.h; sourceTree = "<group>"; };
+		2805C9B820835ECB00080072 /* PerformActionOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformActionOperation.m; sourceTree = "<group>"; };
 		280B9623204B157100FC7F20 /* UnpackWorldOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnpackWorldOperation.h; sourceTree = "<group>"; };
 		280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UnpackWorldOperation.mm; sourceTree = "<group>"; };
 		282C82942066DE1100F3E2CA /* HotbarPreviewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotbarPreviewRenderer.h; sourceTree = "<group>"; };
@@ -692,6 +695,8 @@
 				280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */,
 				28FF917E2065B87A00A2A866 /* PackWorldOperation.h */,
 				28FF917F2065B87A00A2A866 /* PackWorldOperation.m */,
+				2805C9B720835ECB00080072 /* PerformActionOperation.h */,
+				2805C9B820835ECB00080072 /* PerformActionOperation.m */,
 				28FF917D2065B46200A2A866 /* RSWeakifySelf.h */,
 				28FF91842066921D00A2A866 /* MCPlayer.h */,
 				28FF91852066921D00A2A866 /* MCPlayer.mm */,
@@ -1384,6 +1389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2805C9B920835ECB00080072 /* PerformActionOperation.m in Sources */,
 				28FF91802065B87A00A2A866 /* PackWorldOperation.m in Sources */,
 				2805C9A4207C0EFD00080072 /* MCServer.m in Sources */,
 				2805C9AB207FD0CD00080072 /* NSData+ZLib.m in Sources */,

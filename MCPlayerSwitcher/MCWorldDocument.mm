@@ -22,6 +22,7 @@
 #import "ProgressWindow.h"
 #import "UnpackWorldOperation.h"
 #import "PackWorldOperation.h"
+#import "PerformActionOperation.h"
 #import "MCPlayer.h"
 #import "DocumentController.h"
 
@@ -39,6 +40,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     NSURL *worldDirectory;
     UnpackWorldOperation *unpackOperation;
     PackWorldOperation *packOperation;
+    PerformActionOperation *listPlayersOperation;
     DB *db;
     NSArray<MCPlayer*> *players;
 }
@@ -61,8 +63,6 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 
 - (void)makeWindowControllers {
     [super makeWindowControllers];
-    [self performSelector:@selector(showProgressForWorldOperation:) withObject:unpackOperation afterDelay:0.0];
-    [self.tabView selectFirstTabViewItem:nil];
 }
 
 #pragma mark - Progress UI
@@ -141,7 +141,18 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     zf.close();
     
     // create directory
-    worldDirectory = [[AppDelegate sharedInstance].documentController urlForUnpackingWorld:url];
+    if (worldDirectory != nil) {
+        if (listPlayersOperation.isExecuting) {
+            [listPlayersOperation cancel];
+            [listPlayersOperation waitUntilFinished];
+        }
+        if (db) {
+            delete db;
+        }
+        [self cleanupTemporaryFiles];
+    } else {
+        worldDirectory = [[AppDelegate sharedInstance].documentController urlForUnpackingWorld:url];
+    }
     if (worldDirectory == nil) {
         return NO;
     }
@@ -155,6 +166,8 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     unpackOperation.source = url;
     unpackOperation.destination = worldDirectory;
     [unpackOperation performSelectorInBackground:@selector(start) withObject:nil];
+    [self performSelector:@selector(showProgressForWorldOperation:) withObject:unpackOperation afterDelay:0.0];
+    [self.tabView selectFirstTabViewItem:nil];
     
     return YES;
 }
@@ -214,20 +227,30 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     
     NSURL *dbDirectory = [worldDirectory URLByAppendingPathComponent:@"db"];
     if ([self checkOk: DB::Open(options, dbDirectory.fileSystemRepresentation, &db)]) {
-        [self performSelectorInBackground:@selector(listPlayers) withObject:nil];
+        [self listPlayers];
     }
 }
 
 #pragma mark - Player List
 
 - (void)listPlayers {
+    [self.loadingPlayersIndicator startAnimation:nil];
+    [self.tabView selectTabViewItemAtIndex:0];
+    
+    listPlayersOperation = [PerformActionOperation operationWithTarget:self action:@selector(listPlayers:)];
+    [listPlayersOperation performSelectorInBackground:@selector(start) withObject:nil];
+}
+
+- (void)listPlayers:(NSOperation*)operation {
     ReadOptions readOptions;
     readOptions.decompress_allocator = new DecompressAllocator();
-    // iterate through everything
-    readOptions.snapshot = db->GetSnapshot();
-    Iterator *it = db->NewIterator(readOptions);
+    readOptions.snapshot = self->db->GetSnapshot();
+    Iterator *it = self->db->NewIterator(readOptions);
     NSMutableArray<MCPlayer*> *newPlayers = [NSMutableArray arrayWithCapacity:4];
     for (it->SeekToFirst(); it->Valid(); it->Next()) {
+        if (operation.cancelled) {
+            break;
+        }
         BOOL isLocalPlayer = it->key().size() == 13 && memcmp(it->key().data(), "~local_player", 13) == 0;
         BOOL isOtherPlayer = it->key().size() == 43 && strncmp(it->key().data(), "player_", 7) == 0;
         if (isLocalPlayer || isOtherPlayer) {
@@ -237,7 +260,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
         }
     }
     delete it;
-    db->ReleaseSnapshot(readOptions.snapshot);
+    self->db->ReleaseSnapshot(readOptions.snapshot);
     
     [self performSelectorOnMainThread:@selector(showPlayers:) withObject:newPlayers waitUntilDone:NO];
 }
@@ -299,7 +322,23 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 }
 
 - (void)savePlayerChanges:(id)sender {
+    std::string playerToBecomeLocal = [self selectedPlayer].uuid.UUIDString.lowercaseString.UTF8String;
+    std::string newUUIDforLocalPlayer = [self inputUUID].UUIDString.lowercaseString.UTF8String;
+    [self.playersTableView deselectAll:self];
     
+    ReadOptions readOptions;
+    readOptions.decompress_allocator = new DecompressAllocator();
+    readOptions.snapshot = db->GetSnapshot();
+    
+    std::string oldLocalPlayerData, newLocalPlayerData;
+    if (![self checkOk:db->Get(readOptions, "~local_player", &oldLocalPlayerData)]) return;
+    if (![self checkOk:db->Get(readOptions, "player_" + playerToBecomeLocal, &newLocalPlayerData)]) return;
+    if (![self checkOk:db->Delete(leveldb::WriteOptions(), "player_" + playerToBecomeLocal)]) return;
+    if (![self checkOk:db->Put(leveldb::WriteOptions(), "~local_player", newLocalPlayerData)]) return;
+    if (![self checkOk:db->Put(leveldb::WriteOptions(), "player_" + newUUIDforLocalPlayer, oldLocalPlayerData)]) return;
+    db->ReleaseSnapshot(readOptions.snapshot);
+    
+    [self listPlayers];
 }
 
 # pragma mark - Copy UUID
