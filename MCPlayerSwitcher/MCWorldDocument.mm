@@ -302,4 +302,20 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     
 }
 
+# pragma mark - Copy UUID
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (menuItem.action == @selector(copy:)) {
+        return [self selectedPlayer] != nil;
+    } else {
+        return [super validateMenuItem:menuItem];
+    }
+}
+
+- (void)copy:(id)sender {
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    [pasteboard setString:[self selectedPlayer].uuid.UUIDString forType:NSStringPboardType];
+}
+
 @end
