@@ -12,6 +12,7 @@
 		2805C9AB207FD0CD00080072 /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9AA207FD0CD00080072 /* NSData+ZLib.m */; };
 		2805C9AE208127D000080072 /* RNBitStream+VarData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9AD208127D000080072 /* RNBitStream+VarData.m */; };
 		2805C9B920835ECB00080072 /* PerformActionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2805C9B820835ECB00080072 /* PerformActionOperation.m */; };
+		2805C9BB2083EE2A00080072 /* RakNetWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2805C995207C0E8E00080072 /* RakNetWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		280B9622204B076400FC7F20 /* liblibzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 286C70ED20361B2F00638663 /* liblibzip.a */; };
 		280B9625204B157200FC7F20 /* UnpackWorldOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */; };
 		282C82962066DE1100F3E2CA /* HotbarPreviewRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */; };
@@ -251,6 +252,19 @@
 			remoteInfo = libnbtplusplus;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2805C9BA2083EE1800080072 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2805C9BB2083EE2A00080072 /* RakNetWrapper.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2805C98B207C0E8E00080072 /* RakNetWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RakNetWrapper.xcodeproj; path = RakNetWrapper/RakNetWrapper.xcodeproj; sourceTree = "<group>"; };
@@ -1197,7 +1211,7 @@
 			buildConfigurationList = 286C6F092035FE8D00638663 /* Build configuration list for PBXLegacyTarget "Leveldb" */;
 			buildPhases = (
 			);
-			buildToolPath = /usr/bin/make;
+			buildToolPath = "$(SRCROOT)/make-wrapper.sh";
 			buildWorkingDirectory = "$(SRCROOT)/leveldb-mcpe";
 			dependencies = (
 			);
@@ -1215,6 +1229,7 @@
 				286C6EEA2035FD6C00638663 /* Sources */,
 				286C6EEB2035FD6C00638663 /* Frameworks */,
 				286C6EEC2035FD6C00638663 /* Resources */,
+				2805C9BA2083EE1800080072 /* CopyFiles */,
 			);
 			buildRules = (
 			);
