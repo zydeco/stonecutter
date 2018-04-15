@@ -328,6 +328,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     NSUUID *inputUUID = [self inputUUID];
     MCPlayer *selectedPlayer = [self selectedPlayer];
     if (selectedPlayer == nil || inputUUID == nil) {
+        self.playersSaveButton.enabled = NO;
         return;
     }
     NSMutableArray* otherUUIDs = [[players valueForKeyPath:@"uuid"] mutableCopy];
