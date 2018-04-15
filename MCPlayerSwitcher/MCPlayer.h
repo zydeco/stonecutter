@@ -10,12 +10,15 @@
 
 @interface MCPlayer : NSObject
 
-@property (nonatomic, copy) NSUUID *uuid;
-@property (nonatomic, readonly) NSString *displayName;
-@property (nonatomic, readonly) NSArray<NSNumber*> *hotbarItems;
-@property (nonatomic, readonly) NSDictionary<NSString*,NSNumber*> *attributeValues;
+@property (nonatomic, copy, nullable) NSUUID *uuid;
+@property (nonatomic, readonly, nonnull) NSString *key;
+@property (nonatomic, readonly, nonnull) NSData *data;
+@property (nonatomic, readonly, nonnull) NSString *displayName;
+@property (nonatomic, readonly, nonnull) NSArray<NSNumber*> *hotbarItems;
+@property (nonatomic, readonly, nonnull) NSDictionary<NSString*,NSNumber*> *attributeValues;
 @property (nonatomic, readonly, getter=isLocalPlayer) BOOL local;
 
-- (instancetype)initWithKey:(NSString*)key data:(NSData*)data;
+- (instancetype)initWithKey:(nonnull NSString*)key data:(NSData*)data;
+- (instancetype)cloneWithUUID:(nullable NSUUID*)uuid;
 
 @end

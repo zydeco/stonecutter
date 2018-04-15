@@ -23,11 +23,28 @@
         if ([key hasPrefix:@"player_"]) {
             _uuid = [[NSUUID alloc] initWithUUIDString:[key substringFromIndex:7]];
         }
-        playerData = data;
+        playerData = data.copy;
         
         [self loadPlayerData];
     }
     return self;
+}
+
+- (instancetype)cloneWithUUID:(NSUUID *)cloneUUID {
+    NSString *cloneKey = cloneUUID ? [NSString stringWithFormat:@"player_%@", cloneUUID.UUIDString.lowercaseString] : @"~local_player";
+    return [[MCPlayer alloc] initWithKey:cloneKey data:playerData];
+}
+
+- (NSData *)data {
+    return playerData;
+}
+
+- (NSString *)key {
+    if (_uuid == nil) {
+        return @"~local_player";
+    } else {
+        return [NSString stringWithFormat:@"player_%@", _uuid.UUIDString.lowercaseString];
+    }
 }
 
 - (BOOL)isLocalPlayer {

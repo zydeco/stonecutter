@@ -280,6 +280,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     players = newPlayers;
     [self didChangeValueForKey:@"players"];
     [self.tabView selectTabViewItemAtIndex:1];
+    [self validateInput];
 }
 
 - (NSArray<MCPlayer *> *)players {
@@ -309,6 +310,15 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     }
 }
 
+- (MCPlayer*)localPlayer {
+    for (MCPlayer *player in players) {
+        if (player.local) {
+            return player;
+        }
+    }
+    return nil;
+}
+
 - (NSUUID*)inputUUID {
     NSString *uuidString = [self.localPlayerNewUUIDField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return [[NSUUID alloc] initWithUUIDString:uuidString];
@@ -331,7 +341,10 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 }
 
 - (void)savePlayerChanges:(id)sender {
-    std::string playerToBecomeLocal = [self selectedPlayer].uuid.UUIDString.lowercaseString.UTF8String;
+    MCPlayer *playerToBecomeLocal = [self selectedPlayer];
+    MCPlayer *currentLocalPlayer = [self localPlayer];
+    MCPlayer *newLocalPlayer = [currentLocalPlayer cloneWithUUID:[self inputUUID]];
+    std::string playerUUIDToBecomeLocal = playerToBecomeLocal.uuid.UUIDString.lowercaseString.UTF8String;
     std::string newUUIDforLocalPlayer = [self inputUUID].UUIDString.lowercaseString.UTF8String;
     [self.playersTableView deselectAll:self];
     
@@ -339,16 +352,19 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     readOptions.decompress_allocator = new DecompressAllocator();
     readOptions.snapshot = db->GetSnapshot();
     
-    std::string oldLocalPlayerData, newLocalPlayerData;
-    if (![self checkOk:db->Get(readOptions, "~local_player", &oldLocalPlayerData)]) return;
-    if (![self checkOk:db->Get(readOptions, "player_" + playerToBecomeLocal, &newLocalPlayerData)]) return;
-    if (![self checkOk:db->Delete(leveldb::WriteOptions(), "player_" + playerToBecomeLocal)]) return;
-    if (![self checkOk:db->Put(leveldb::WriteOptions(), "~local_player", newLocalPlayerData)]) return;
-    if (![self checkOk:db->Put(leveldb::WriteOptions(), "player_" + newUUIDforLocalPlayer, oldLocalPlayerData)]) return;
+    Slice oldLocalPlayerData((const char*)currentLocalPlayer.data.bytes, (size_t)currentLocalPlayer.data.length);
+    Slice newLocalPlayerData((const char*)playerToBecomeLocal.data.bytes, (size_t)playerToBecomeLocal.data.length);
+    if (![self checkOk:db->Delete(leveldb::WriteOptions(), playerToBecomeLocal.key.UTF8String)]) return;
+    if (![self checkOk:db->Put(leveldb::WriteOptions(), currentLocalPlayer.key.UTF8String, newLocalPlayerData)]) return;
+    if (![self checkOk:db->Put(leveldb::WriteOptions(), newLocalPlayer.key.UTF8String, oldLocalPlayerData)]) return;
     db->ReleaseSnapshot(readOptions.snapshot);
     [self updateChangeCount:NSChangeDone];
     
-    [self listPlayers];
+    // update player list
+    NSMutableArray *newPlayers = self.players.mutableCopy;
+    [newPlayers replaceObjectAtIndex:[newPlayers indexOfObject:playerToBecomeLocal] withObject:[playerToBecomeLocal cloneWithUUID:nil]];
+    [newPlayers replaceObjectAtIndex:[newPlayers indexOfObject:currentLocalPlayer] withObject:newLocalPlayer];
+    [self showPlayers:newPlayers];
 }
 
 # pragma mark - Copy UUID
