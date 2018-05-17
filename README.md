@@ -1,6 +1,8 @@
-# MCPlayerSwitcher
+# Stonecutter
 
-Switch players on Minecraft (Bedrock Edition) worlds.
+Random things with Minecraft (Bedrock Edition) worlds:
+
+* Switch players
 
 Can be useful when sharing multiplayer worlds, or uploading them to realms.
 
