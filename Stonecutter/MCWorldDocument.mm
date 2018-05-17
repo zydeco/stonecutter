@@ -348,6 +348,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     if (![self checkOk:db->Put(leveldb::WriteOptions(), currentLocalPlayer.key.UTF8String, newLocalPlayerData)]) return;
     if (![self checkOk:db->Put(leveldb::WriteOptions(), newLocalPlayer.key.UTF8String, oldLocalPlayerData)]) return;
     db->ReleaseSnapshot(readOptions.snapshot);
+    delete readOptions.decompress_allocator;
     [self updateChangeCount:NSChangeDone];
     
     // update player list

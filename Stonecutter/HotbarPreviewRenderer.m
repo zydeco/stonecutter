@@ -74,6 +74,10 @@
     
     CGImageRef imageRef = CGBitmapContextCreateImage(ctx);
     NSImage *image = [[NSImage alloc] initWithCGImage:imageRef size:NSSizeFromCGSize(baseSize)];
+    
+    CGImageRelease(imageRef);
+    CGContextRelease(ctx);
+    
     return image;
 }
 
