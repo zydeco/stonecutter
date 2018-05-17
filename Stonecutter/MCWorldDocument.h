@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MCTypes.h"
+#import "PlayersWindowController.h"
 
 @class ProgressWindow, MCPlayer;
 
@@ -19,12 +20,8 @@
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *loadingWorldIndicator;
 
 @property (nonatomic, readonly) NSArray<MCPlayer*> *players;
-@property (nonatomic, weak) IBOutlet NSTableView *playersTableView;
-@property (nonatomic, weak) IBOutlet NSTextField *localPlayerNewUUIDField;
-@property (nonatomic, weak) IBOutlet NSButton *playersSaveButton;
+@property (nonatomic, readonly) MCPlayer *localPlayer;
 
-- (IBAction)showServer:(id)sender;
-- (IBAction)savePlayerChanges:(id)sender;
-
+- (void)switchLocalPlayerToUUID:(NSUUID*)newUUID withPlayer:(MCPlayer*)playerToBecomeLocal;
 @end
 

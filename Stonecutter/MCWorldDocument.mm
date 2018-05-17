@@ -44,6 +44,8 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     DB *db;
     NSArray<MCPlayer*> *players;
     NSSet<NSValue*> *overworldChunks, *netherChunks, *endChunks;
+    
+    PlayersWindowController *playersWindowController;
 }
 
 - (instancetype)init {
@@ -76,7 +78,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
         [self.windowForSheet beginSheet:_progressWindow completionHandler:^(NSModalResponse returnCode) {
             if (operation.error) {
                 [self giveUpWithError:operation.error];
-            } else if (operation == unpackOperation) {
+            } else if (operation == self->unpackOperation) {
                 [self openWorld];
             }
         }];
@@ -105,7 +107,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 
 - (void)endProgressWithResponseCode:(NSModalResponse)response {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.windowForSheet endSheet:_progressWindow returnCode:response];
+        [self.windowForSheet endSheet:self->_progressWindow returnCode:response];
     });
 }
 
@@ -196,7 +198,6 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     }
     return packOperation.error == nil;
 }
-
 
 - (void)close {
     if (loadWorldOperation.isExecuting) {
@@ -302,45 +303,23 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     overworldChunks = mOverworldChunks.copy;
     netherChunks = mNetherChunks.copy;
     endChunks = mEndChunks.copy;
-    [self performSelectorOnMainThread:@selector(showPlayers:) withObject:newPlayers waitUntilDone:NO];
-}
+    [self.loadingWorldIndicator performSelectorOnMainThread:@selector(stopAnimation:) withObject:nil waitUntilDone:NO];
+    
+    playersWindowController = [[PlayersWindowController alloc] initWithWindowNibName:@"PlayersWindowController"];
+    [self addWindowController:playersWindowController];
 
-#pragma mark - Player List
-
-- (void)showPlayers:(NSArray<MCPlayer*>*)newPlayers {
-    [self.loadingWorldIndicator stopAnimation:nil];
     [self willChangeValueForKey:@"players"];
     players = newPlayers;
     [self didChangeValueForKey:@"players"];
-    [self.tabView selectTabViewItemAtIndex:1];
-    [self validateInput];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tabView selectTabViewItemAtIndex:1];
+        [self->playersWindowController showWindow:self];
+    });
 }
 
 - (NSArray<MCPlayer *> *)players {
     return players;
-}
-
-#pragma mark - Change UUID
-
-- (void)controlTextDidChange:(NSNotification *)notification {
-    if (notification.object == self.localPlayerNewUUIDField) {
-        [self validateInput];
-    }
-}
-
-- (void)tableViewSelectionDidChange:(NSNotification *)notification {
-    if (notification.object == self.playersTableView) {
-        [self validateInput];
-    }
-}
-
-- (MCPlayer*)selectedPlayer {
-    NSInteger row = self.playersTableView.selectedRow;
-    if (row == -1) {
-        return nil;
-    } else {
-        return players[row];
-    }
 }
 
 - (MCPlayer*)localPlayer {
@@ -352,35 +331,12 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     return nil;
 }
 
-- (NSUUID*)inputUUID {
-    NSString *uuidString = [self.localPlayerNewUUIDField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    return [[NSUUID alloc] initWithUUIDString:uuidString];
-}
-
-- (void)validateInput {
-    NSUUID *inputUUID = [self inputUUID];
-    MCPlayer *selectedPlayer = [self selectedPlayer];
-    if (selectedPlayer == nil || inputUUID == nil) {
-        self.playersSaveButton.enabled = NO;
-        return;
-    }
-    NSMutableArray* otherUUIDs = [[players valueForKeyPath:@"uuid"] mutableCopy];
-    [otherUUIDs removeObject:[NSNull null]];
-    [otherUUIDs removeObject:selectedPlayer.uuid];
-    self.playersSaveButton.enabled = inputUUID && !selectedPlayer.local && ![otherUUIDs containsObject:inputUUID];
-}
-
-- (void)showServer:(id)sender {
-    [[AppDelegate sharedInstance] showServer];
-}
-
-- (void)savePlayerChanges:(id)sender {
-    MCPlayer *playerToBecomeLocal = [self selectedPlayer];
+- (void)switchLocalPlayerToUUID:(NSUUID *)newUUID withPlayer:(MCPlayer *)playerToBecomeLocal {
     MCPlayer *currentLocalPlayer = [self localPlayer];
-    MCPlayer *newLocalPlayer = [currentLocalPlayer cloneWithUUID:[self inputUUID]];
+    MCPlayer *newLocalPlayer = [currentLocalPlayer cloneWithUUID:newUUID];
+
     std::string playerUUIDToBecomeLocal = playerToBecomeLocal.uuid.UUIDString.lowercaseString.UTF8String;
-    std::string newUUIDforLocalPlayer = [self inputUUID].UUIDString.lowercaseString.UTF8String;
-    [self.playersTableView deselectAll:self];
+    std::string newUUIDforLocalPlayer = newUUID.UUIDString.lowercaseString.UTF8String;
     
     ReadOptions readOptions;
     readOptions.decompress_allocator = new DecompressAllocator();
@@ -398,23 +354,10 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     NSMutableArray *newPlayers = self.players.mutableCopy;
     [newPlayers replaceObjectAtIndex:[newPlayers indexOfObject:playerToBecomeLocal] withObject:[playerToBecomeLocal cloneWithUUID:nil]];
     [newPlayers replaceObjectAtIndex:[newPlayers indexOfObject:currentLocalPlayer] withObject:newLocalPlayer];
-    [self showPlayers:newPlayers];
-}
-
-# pragma mark - Copy UUID
-
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-    if (menuItem.action == @selector(copy:)) {
-        return [self selectedPlayer] != nil;
-    } else {
-        return [super validateMenuItem:menuItem];
-    }
-}
-
-- (void)copy:(id)sender {
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    [pasteboard clearContents];
-    [pasteboard setString:[self selectedPlayer].uuid.UUIDString forType:NSStringPboardType];
+    
+    [self willChangeValueForKey:@"players"];
+    players = newPlayers;
+    [self didChangeValueForKey:@"players"];
 }
 
 @end
