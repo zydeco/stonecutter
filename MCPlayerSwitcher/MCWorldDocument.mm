@@ -76,13 +76,15 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
             if (operation.error) {
                 [self giveUpWithError:operation.error];
             } else if (operation == unpackOperation) {
-                [self.loadingPlayersIndicator startAnimation:nil];
                 [self openWorld];
             }
         }];
         [operation addObserver:self forKeyPath:@"finished" options:0 context:NULL];
     } else if (operation.error) {
         [self giveUpWithError:operation.error];
+    } else if (operation.isFinished && operation == unpackOperation) {
+        // so fast?
+        [self openWorld];
     }
 }
 
@@ -234,6 +236,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     options.compressors[0] = new ZlibCompressorRaw(-1);
     options.compressors[1] = new ZlibCompressor();
     
+    [self.loadingPlayersIndicator startAnimation:nil];
     NSURL *dbDirectory = [worldDirectory URLByAppendingPathComponent:@"db"];
     if ([self checkOk: DB::Open(options, dbDirectory.fileSystemRepresentation, &db)]) {
         [self listPlayers];
