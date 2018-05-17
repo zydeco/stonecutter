@@ -17,7 +17,7 @@ using namespace libzippp;
 @implementation UnpackWorldOperation
 
 - (NSString *)localizedName {
-    return @"Loading world…";
+    return @"Unpacking world…";
 }
 
 - (void)main {

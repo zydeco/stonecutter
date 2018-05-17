@@ -280,6 +280,7 @@
 		280B9624204B157200FC7F20 /* UnpackWorldOperation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UnpackWorldOperation.mm; sourceTree = "<group>"; };
 		282C82942066DE1100F3E2CA /* HotbarPreviewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotbarPreviewRenderer.h; sourceTree = "<group>"; };
 		282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotbarPreviewRenderer.m; sourceTree = "<group>"; };
+		285C257620ADFB7500CD8D55 /* MCTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCTypes.h; sourceTree = "<group>"; };
 		286C6EEE2035FD6C00638663 /* MCPlayerSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCPlayerSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		286C6EF12035FD6C00638663 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		286C6EF22035FD6C00638663 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -691,6 +692,7 @@
 				2805C9A5207FCEAC00080072 /* Server */,
 				286C6EF12035FD6C00638663 /* AppDelegate.h */,
 				286C6EF22035FD6C00638663 /* AppDelegate.m */,
+				285C257620ADFB7500CD8D55 /* MCTypes.h */,
 				286C6EF42035FD6C00638663 /* MCWorldDocument.h */,
 				286C6EF52035FD6C00638663 /* MCWorldDocument.mm */,
 				286C6EF72035FD6C00638663 /* Document.xib */,

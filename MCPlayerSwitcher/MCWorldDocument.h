@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MCTypes.h"
 
 @class ProgressWindow, MCPlayer;
 
@@ -15,7 +16,7 @@
 @property (nonatomic, weak) IBOutlet ProgressWindow *progressWindow;
 @property (nonatomic, weak) IBOutlet NSTabView *tabView;
 
-@property (nonatomic, weak) IBOutlet NSProgressIndicator *loadingPlayersIndicator;
+@property (nonatomic, weak) IBOutlet NSProgressIndicator *loadingWorldIndicator;
 
 @property (nonatomic, readonly) NSArray<MCPlayer*> *players;
 @property (nonatomic, weak) IBOutlet NSTableView *playersTableView;

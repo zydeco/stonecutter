@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MCWorldDocument">
             <connections>
-                <outlet property="loadingPlayersIndicator" destination="aYd-3w-Lor" id="sgr-tz-bMh"/>
+                <outlet property="loadingWorldIndicator" destination="aYd-3w-Lor" id="sgr-tz-bMh"/>
                 <outlet property="localPlayerNewUUIDField" destination="BMB-ft-6AT" id="i1W-Nd-DJg"/>
                 <outlet property="playersSaveButton" destination="Vx9-J0-eJs" id="JQH-mv-6ac"/>
                 <outlet property="playersTableView" destination="Dq6-1q-f5G" id="5a1-wf-qLc"/>
@@ -34,8 +34,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Loading Players" identifier="loading" id="9Do-z2-RnW">
-                                <view key="view" id="0v3-Lf-iuR">
+                            <tabViewItem label="Loading World" identifier="loading" id="9Do-z2-RnW">
+                                <view key="view" ambiguous="YES" id="0v3-Lf-iuR">
                                     <rect key="frame" x="0.0" y="0.0" width="550" height="326"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -44,9 +44,9 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         </progressIndicator>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xfi-3q-ynr">
-                                            <rect key="frame" x="220" y="134" width="110" height="17"/>
+                                            <rect key="frame" x="225" y="134" width="100" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loading players…" id="3le-Zy-G9c">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loading world…" id="3le-Zy-G9c">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -56,7 +56,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Select Player" identifier="select" id="6Xr-nn-JQ0">
-                                <view key="view" ambiguous="YES" id="ojG-5g-mcp">
+                                <view key="view" id="ojG-5g-mcp">
                                     <rect key="frame" x="0.0" y="0.0" width="550" height="326"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -279,7 +279,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HmN-eK-Grg">
                         <rect key="frame" x="18" y="80" width="425" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Loading World…" id="vNc-kS-rkT">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Unpacking World…" id="vNc-kS-rkT">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

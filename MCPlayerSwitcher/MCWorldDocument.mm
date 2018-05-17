@@ -40,9 +40,10 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     NSURL *worldDirectory;
     UnpackWorldOperation *unpackOperation;
     PackWorldOperation *packOperation;
-    PerformActionOperation *listPlayersOperation;
+    PerformActionOperation *loadWorldOperation;
     DB *db;
     NSArray<MCPlayer*> *players;
+    NSSet<NSValue*> *overworldChunks, *netherChunks, *endChunks;
 }
 
 - (instancetype)init {
@@ -145,9 +146,9 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     
     // create directory
     if (worldDirectory != nil) {
-        if (listPlayersOperation.isExecuting) {
-            [listPlayersOperation cancel];
-            [listPlayersOperation waitUntilFinished];
+        if (loadWorldOperation.isExecuting) {
+            [loadWorldOperation cancel];
+            [loadWorldOperation waitUntilFinished];
         }
         if (db) {
             delete db;
@@ -198,9 +199,9 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 
 
 - (void)close {
-    if (listPlayersOperation.isExecuting) {
-        [listPlayersOperation cancel];
-        [listPlayersOperation waitUntilFinished];
+    if (loadWorldOperation.isExecuting) {
+        [loadWorldOperation cancel];
+        [loadWorldOperation waitUntilFinished];
     }
     if (db) {
         delete db;
@@ -236,49 +237,78 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     options.compressors[0] = new ZlibCompressorRaw(-1);
     options.compressors[1] = new ZlibCompressor();
     
-    [self.loadingPlayersIndicator startAnimation:nil];
+    [self.loadingWorldIndicator startAnimation:nil];
     NSURL *dbDirectory = [worldDirectory URLByAppendingPathComponent:@"db"];
     if ([self checkOk: DB::Open(options, dbDirectory.fileSystemRepresentation, &db)]) {
-        [self listPlayers];
+        [self loadWorld];
     }
 }
 
-#pragma mark - Player List
-
-- (void)listPlayers {
-    [self.loadingPlayersIndicator startAnimation:nil];
+- (void)loadWorld {
+    [self.loadingWorldIndicator startAnimation:nil];
     [self.tabView selectTabViewItemAtIndex:0];
     
-    listPlayersOperation = [PerformActionOperation operationWithTarget:self action:@selector(listPlayers:)];
-    [listPlayersOperation performSelectorInBackground:@selector(start) withObject:nil];
+    loadWorldOperation = [PerformActionOperation operationWithTarget:self action:@selector(loadWorld:)];
+    [loadWorldOperation performSelectorInBackground:@selector(start) withObject:nil];
 }
 
-- (void)listPlayers:(NSOperation*)operation {
+- (void)loadWorld:(NSOperation*)operation {
     ReadOptions readOptions;
     readOptions.decompress_allocator = new DecompressAllocator();
     readOptions.snapshot = self->db->GetSnapshot();
     Iterator *it = self->db->NewIterator(readOptions);
     NSMutableArray<MCPlayer*> *newPlayers = [NSMutableArray arrayWithCapacity:4];
+    NSMutableSet<NSValue*> *mOverworldChunks = [NSMutableSet setWithCapacity:128];
+    NSMutableSet<NSValue*> *mNetherChunks = [NSMutableSet setWithCapacity:128];
+    NSMutableSet<NSValue*> *mEndChunks = [NSMutableSet setWithCapacity:128];
+    
     for (it->SeekToFirst(); it->Valid(); it->Next()) {
         if (operation.cancelled) {
             break;
         }
-        BOOL isLocalPlayer = it->key().size() == 13 && memcmp(it->key().data(), "~local_player", 13) == 0;
-        BOOL isOtherPlayer = it->key().size() == 43 && strncmp(it->key().data(), "player_", 7) == 0;
+        size_t keySize = it->key().size();
+        
+        // player
+        BOOL isLocalPlayer = keySize == 13 && memcmp(it->key().data(), "~local_player", 13) == 0;
+        BOOL isOtherPlayer = keySize == 43 && strncmp(it->key().data(), "player_", 7) == 0;
         if (isLocalPlayer || isOtherPlayer) {
             NSString *playerKey = @(it->key().ToString().c_str());
             NSData *playerData = [NSData dataWithBytes:it->value().data() length:it->value().size()];
             [newPlayers addObject:[[MCPlayer alloc] initWithKey:playerKey data:playerData]];
         }
+        
+        // chunk
+        else if (keySize == 9 || keySize == 10 || keySize == 13 || keySize == 14) {
+            const char * keyData = it->key().data();
+            int32_t x = OSReadLittleInt32(keyData, 0);
+            int32_t y = OSReadLittleInt32(keyData, 4);
+            ChunkPos pos = {.x = x, .y = y};
+            
+            if (keySize == 9 || keySize == 10) {
+                [mOverworldChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+            } else {
+                int32_t dimension = OSReadLittleInt32(keyData, 8);
+                if (dimension == MCDimensionNether) {
+                    [mNetherChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                } else if (dimension == MCDimensionEnd) {
+                    [mEndChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                }
+            }
+        }
     }
     delete it;
     self->db->ReleaseSnapshot(readOptions.snapshot);
     
+    overworldChunks = mOverworldChunks.copy;
+    netherChunks = mNetherChunks.copy;
+    endChunks = mEndChunks.copy;
     [self performSelectorOnMainThread:@selector(showPlayers:) withObject:newPlayers waitUntilDone:NO];
 }
 
+#pragma mark - Player List
+
 - (void)showPlayers:(NSArray<MCPlayer*>*)newPlayers {
-    [self.loadingPlayersIndicator stopAnimation:nil];
+    [self.loadingWorldIndicator stopAnimation:nil];
     [self willChangeValueForKey:@"players"];
     players = newPlayers;
     [self didChangeValueForKey:@"players"];
