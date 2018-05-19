@@ -305,9 +305,6 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     netherChunks = mNetherChunks.copy;
     endChunks = mEndChunks.copy;
     [self.loadingWorldIndicator performSelectorOnMainThread:@selector(stopAnimation:) withObject:nil waitUntilDone:NO];
-    
-    playersWindowController = [[PlayersWindowController alloc] initWithWindowNibName:@"PlayersWindowController"];
-    [self addWindowController:playersWindowController];
 
     [self willChangeValueForKey:@"players"];
     players = newPlayers;
@@ -320,8 +317,15 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tabView selectTabViewItemAtIndex:1];
-        [self->playersWindowController showWindow:self];
     });
+}
+
+- (void)showPlayersWindow:(id)sender {
+    if (playersWindowController == nil) {
+        playersWindowController = [[PlayersWindowController alloc] initWithWindowNibName:@"PlayersWindowController"];
+        [self addWindowController:playersWindowController];
+    }
+    [playersWindowController showWindow:self];
 }
 
 - (NSArray<MCPlayer *> *)players {

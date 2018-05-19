@@ -25,5 +25,7 @@
 @property (nonatomic, strong) NSString *worldName;
 
 - (void)switchLocalPlayerToUUID:(NSUUID*)newUUID withPlayer:(MCPlayer*)playerToBecomeLocal;
+- (IBAction)showPlayersWindow:(id)sender;
+
 @end
 
