@@ -313,6 +313,11 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     players = newPlayers;
     [self didChangeValueForKey:@"players"];
     
+    // load external files
+    NSString *thumbnailPath = [worldDirectory.path stringByAppendingPathComponent:@"world_icon.jpeg"];
+    self.thumbnail = [[NSImage alloc] initWithContentsOfFile:thumbnailPath];
+    self.worldName = [NSString stringWithContentsOfFile:[worldDirectory.path stringByAppendingPathComponent:@"levelname.txt"] encoding:NSUTF8StringEncoding error:nil];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tabView selectTabViewItemAtIndex:1];
         [self->playersWindowController showWindow:self];

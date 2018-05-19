@@ -52,10 +52,32 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Select Player" identifier="select" id="6Xr-nn-JQ0">
+                            <tabViewItem label="Select Player" identifier="select" id="6Xr-nn-JQ0" userLabel="World Info">
                                 <view key="view" ambiguous="YES" id="ojG-5g-mcp">
                                     <rect key="frame" x="0.0" y="0.0" width="550" height="326"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TB4-44-Sms">
+                                            <rect key="frame" x="20" y="194" width="200" height="112"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="wYA-mf-Ecc"/>
+                                            <connections>
+                                                <binding destination="-2" name="value" keyPath="thumbnail" id="IbL-bR-Tqd"/>
+                                            </connections>
+                                        </imageView>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bzB-Le-jaF">
+                                            <rect key="frame" x="226" y="285" width="306" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="World" id="0pj-I3-DxW">
+                                                <font key="font" metaFont="system" size="17"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <binding destination="-2" name="value" keyPath="worldName" id="5Hb-kA-ioc"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>

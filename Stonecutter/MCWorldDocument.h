@@ -21,6 +21,8 @@
 
 @property (nonatomic, readonly) NSArray<MCPlayer*> *players;
 @property (nonatomic, readonly) MCPlayer *localPlayer;
+@property (nonatomic, strong) NSImage *thumbnail;
+@property (nonatomic, strong) NSString *worldName;
 
 - (void)switchLocalPlayerToUUID:(NSUUID*)newUUID withPlayer:(MCPlayer*)playerToBecomeLocal;
 @end
