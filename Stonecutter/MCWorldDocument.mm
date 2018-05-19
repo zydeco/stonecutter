@@ -75,6 +75,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     if (!operation.isFinished) {
         _progressWindow.progress = operation.progress;
         _progressWindow.progresLabel.stringValue = operation.localizedName;
+        [operation addObserver:self forKeyPath:@"finished" options:0 context:NULL];
         [self.windowForSheet beginSheet:_progressWindow completionHandler:^(NSModalResponse returnCode) {
             if (operation.error) {
                 [self giveUpWithError:operation.error];
@@ -82,7 +83,6 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
                 [self openWorld];
             }
         }];
-        [operation addObserver:self forKeyPath:@"finished" options:0 context:NULL];
     } else if (operation.error) {
         [self giveUpWithError:operation.error];
     } else if (operation.isFinished && operation == unpackOperation) {
@@ -173,7 +173,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     unpackOperation.source = url;
     unpackOperation.destination = worldDirectory;
     [unpackOperation performSelectorInBackground:@selector(start) withObject:nil];
-    [self performSelector:@selector(showProgressForWorldOperation:) withObject:unpackOperation afterDelay:0.0];
+    [self performSelector:@selector(showProgressForWorldOperation:) withObject:unpackOperation afterDelay:0.1];
     [self.tabView selectFirstTabViewItem:nil];
     
     return YES;
