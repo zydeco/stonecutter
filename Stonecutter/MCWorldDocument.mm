@@ -67,6 +67,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 
 - (void)makeWindowControllers {
     [super makeWindowControllers];
+    self.windowControllers.firstObject.shouldCloseDocument = YES;
 }
 
 #pragma mark - Progress UI
