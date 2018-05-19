@@ -17,6 +17,10 @@
 #include "leveldb/decompress_allocator.h"
 #include "leveldb/zlib_compressor.h"
 #include "libzippp.h"
+#include "nbt_tags.h"
+#include "libnbtplusplus/include/io/stream_reader.h"
+#include <fstream>
+#include <iostream>
 
 #import "AppDelegate.h"
 #import "ProgressWindow.h"
@@ -44,6 +48,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     DB *db;
     NSArray<MCPlayer*> *players;
     NSSet<NSValue*> *overworldChunks, *netherChunks, *endChunks;
+    NSDictionary *levelDat;
     
     PlayersWindowController *playersWindowController;
 }
@@ -264,6 +269,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     NSMutableSet<NSValue*> *mNetherChunks = [NSMutableSet setWithCapacity:128];
     NSMutableSet<NSValue*> *mEndChunks = [NSMutableSet setWithCapacity:128];
     
+    // go through leveldb
     for (it->SeekToFirst(); it->Valid(); it->Next()) {
         if (operation.cancelled) {
             break;
@@ -314,6 +320,13 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     NSString *thumbnailPath = [worldDirectory.path stringByAppendingPathComponent:@"world_icon.jpeg"];
     self.thumbnail = [[NSImage alloc] initWithContentsOfFile:thumbnailPath];
     self.worldName = [NSString stringWithContentsOfFile:[worldDirectory.path stringByAppendingPathComponent:@"levelname.txt"] encoding:NSUTF8StringEncoding error:nil];
+    
+    // level.dat
+    std::ifstream fs([worldDirectory.path stringByAppendingPathComponent:@"level.dat"].fileSystemRepresentation);
+    fs.seekg(8, fs.beg); // skip header
+    nbt::io::stream_reader reader(fs, endian::little);
+    const nbt::value compound(reader.read_compound().second);
+    levelDat = [self objectWithNBTValue:compound];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tabView selectTabViewItemAtIndex:1];
@@ -369,6 +382,69 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     [self willChangeValueForKey:@"players"];
     players = newPlayers;
     [self didChangeValueForKey:@"players"];
+}
+
+- (id)objectWithNBTValue:(const nbt::value &)value {
+    switch (value.get_type()) {
+        case nbt::tag_type::Byte:
+            return @(static_cast<const nbt::tag_byte&>(value.get()).get());
+        case nbt::tag_type::Short:
+            return @(static_cast<const nbt::tag_short&>(value.get()).get());
+        case nbt::tag_type::Int:
+            return @(static_cast<const nbt::tag_int&>(value.get()).get());
+        case nbt::tag_type::Long:
+            return @(static_cast<const nbt::tag_long&>(value.get()).get());
+        case nbt::tag_type::Float:
+            return @(static_cast<const nbt::tag_float&>(value.get()).get());
+        case nbt::tag_type::Double:
+            return @(static_cast<const nbt::tag_double&>(value.get()).get());
+        case nbt::tag_type::Byte_Array: {
+            const auto values = static_cast<const nbt::tag_byte_array&>(value.get());
+            if (values.size() == 0) return [NSData data];
+            signed char bytes[values.size()];
+            for (size_t i = 0; i < values.size(); i++) {
+                bytes[i] = values.at(i);
+            }
+            return [NSData dataWithBytes:bytes length:values.size()];
+        } break;
+        case nbt::tag_type::String:
+            return @(static_cast<const nbt::tag_string&>(value.get()).get().c_str());
+        case nbt::tag_type::List: {
+            const auto values = static_cast<const nbt::tag_list&>(value.get());
+            if (values.size() == 0) return @[];
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:values.size()];
+            for (size_t i = 0; i < values.size(); i++) {
+                [array addObject:[self objectWithNBTValue:values.at(i)]];
+            }
+            return array.copy;
+        } break;
+        case nbt::tag_type::Compound: {
+            const auto root = static_cast<const nbt::tag_compound&>(value.get());
+            if (root.size() == 0) return @{};
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:root.size()];
+            for(const auto& kv: root)
+            {
+                NSString *key = @(kv.first.c_str());
+                if (kv.second) {
+                    const auto &value = kv.second;
+                    dict[key] = [self objectWithNBTValue:value];
+                } else {
+                    dict[key] = [NSNull null];
+                }
+            }
+            return dict.copy;
+        } break;
+        case nbt::tag_type::Int_Array: {
+            const auto values = static_cast<const nbt::tag_int_array&>(value.get());
+            NSMutableArray *intArray = [NSMutableArray arrayWithCapacity:values.size()];
+            for (size_t i = 0; i < values.size(); i++) {
+                [intArray addObject:@(values.at(i))];
+            }
+            return intArray.copy;
+        } break;
+        default:
+            return [NSNull null];
+    }
 }
 
 @end
