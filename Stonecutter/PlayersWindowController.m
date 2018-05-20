@@ -76,7 +76,6 @@
 
 - (void)savePlayerChanges:(id)sender {
     MCPlayer *playerToBecomeLocal = [self selectedPlayer];
-    //    [self.playersTableView deselectAll:self];
     [self.document switchLocalPlayerToUUID:[self inputUUID] withPlayer:playerToBecomeLocal];
 }
 

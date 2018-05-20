@@ -50,7 +50,7 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     NSSet<NSValue*> *overworldChunks, *netherChunks, *endChunks;
     NSDictionary *levelDat;
     
-    PlayersWindowController *playersWindowController;
+    __weak PlayersWindowController *playersWindowController;
 }
 
 - (instancetype)init {
@@ -335,8 +335,9 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 
 - (void)showPlayersWindow:(id)sender {
     if (playersWindowController == nil) {
-        playersWindowController = [[PlayersWindowController alloc] initWithWindowNibName:@"PlayersWindowController"];
-        [self addWindowController:playersWindowController];
+        PlayersWindowController *wc = [[PlayersWindowController alloc] initWithWindowNibName:@"PlayersWindowController"];
+        [self addWindowController:wc];
+        playersWindowController = wc;
     }
     [playersWindowController showWindow:self];
 }
