@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSImage *thumbnail;
 @property (nonatomic, strong) NSString *worldName;
 @property (nonatomic, readonly) NSNumber *worldSeed;
+@property (nonatomic, readonly) NSSet<NSValue*> *overworldChunks, *netherChunks, *endChunks;
 
 - (void)switchLocalPlayerToUUID:(NSUUID*)newUUID withPlayer:(MCPlayer*)playerToBecomeLocal;
 - (IBAction)showPlayersWindow:(id)sender;

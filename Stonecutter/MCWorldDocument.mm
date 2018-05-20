@@ -47,7 +47,6 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     PerformActionOperation *loadWorldOperation;
     DB *db;
     NSArray<MCPlayer*> *players;
-    NSSet<NSValue*> *overworldChunks, *netherChunks, *endChunks;
     NSDictionary *levelDat;
     
     __weak PlayersWindowController *playersWindowController;
@@ -265,9 +264,9 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     readOptions.snapshot = self->db->GetSnapshot();
     Iterator *it = self->db->NewIterator(readOptions);
     NSMutableArray<MCPlayer*> *newPlayers = [NSMutableArray arrayWithCapacity:4];
-    NSMutableSet<NSValue*> *mOverworldChunks = [NSMutableSet setWithCapacity:128];
-    NSMutableSet<NSValue*> *mNetherChunks = [NSMutableSet setWithCapacity:128];
-    NSMutableSet<NSValue*> *mEndChunks = [NSMutableSet setWithCapacity:128];
+    NSMutableSet<NSValue*> *overworldChunks = [NSMutableSet setWithCapacity:128];
+    NSMutableSet<NSValue*> *netherChunks = [NSMutableSet setWithCapacity:128];
+    NSMutableSet<NSValue*> *endChunks = [NSMutableSet setWithCapacity:128];
     
     // go through leveldb
     for (it->SeekToFirst(); it->Valid(); it->Next()) {
@@ -293,13 +292,13 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
             ChunkPos pos = {.x = x, .y = y};
             
             if (keySize == 9 || keySize == 10) {
-                [mOverworldChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                [overworldChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
             } else {
                 int32_t dimension = OSReadLittleInt32(keyData, 8);
                 if (dimension == MCDimensionNether) {
-                    [mNetherChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                    [netherChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
                 } else if (dimension == MCDimensionEnd) {
-                    [mEndChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                    [endChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
                 }
             }
         }
@@ -307,9 +306,15 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     delete it;
     self->db->ReleaseSnapshot(readOptions.snapshot);
     
-    overworldChunks = mOverworldChunks.copy;
-    netherChunks = mNetherChunks.copy;
-    endChunks = mEndChunks.copy;
+    [self willChangeValueForKey:@"overworldChunks"];
+    _overworldChunks = overworldChunks.copy;
+    [self didChangeValueForKey:@"overworldChunks"];
+    [self willChangeValueForKey:@"netherChunks"];
+    _netherChunks = netherChunks.copy;
+    [self didChangeValueForKey:@"netherChunks"];
+    [self willChangeValueForKey:@"endChunks"];
+    _endChunks = endChunks.copy;
+    [self didChangeValueForKey:@"endChunks"];
     [self.loadingWorldIndicator performSelectorOnMainThread:@selector(stopAnimation:) withObject:nil waitUntilDone:NO];
 
     [self willChangeValueForKey:@"players"];

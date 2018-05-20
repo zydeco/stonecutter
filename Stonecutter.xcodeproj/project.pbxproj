@@ -18,6 +18,7 @@
 		282C82962066DE1100F3E2CA /* HotbarPreviewRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */; };
 		285C258320AE0F5100CD8D55 /* PlayersWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 285C258120AE0F5100CD8D55 /* PlayersWindowController.m */; };
 		285C258420AE0F5100CD8D55 /* PlayersWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285C258220AE0F5100CD8D55 /* PlayersWindowController.xib */; };
+		285C258F20B1F21700CD8D55 /* ChunkCountFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 285C258E20B1F21700CD8D55 /* ChunkCountFormatter.m */; };
 		286C6EF32035FD6C00638663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF22035FD6C00638663 /* AppDelegate.m */; };
 		286C6EF62035FD6C00638663 /* MCWorldDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 286C6EF52035FD6C00638663 /* MCWorldDocument.mm */; };
 		286C6EF92035FD6C00638663 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286C6EF72035FD6C00638663 /* Document.xib */; };
@@ -286,6 +287,8 @@
 		285C258020AE0F5100CD8D55 /* PlayersWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayersWindowController.h; sourceTree = "<group>"; };
 		285C258120AE0F5100CD8D55 /* PlayersWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayersWindowController.m; sourceTree = "<group>"; };
 		285C258220AE0F5100CD8D55 /* PlayersWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayersWindowController.xib; sourceTree = "<group>"; };
+		285C258D20B1F21700CD8D55 /* ChunkCountFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChunkCountFormatter.h; sourceTree = "<group>"; };
+		285C258E20B1F21700CD8D55 /* ChunkCountFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChunkCountFormatter.m; sourceTree = "<group>"; };
 		286C6EEE2035FD6C00638663 /* Stonecutter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stonecutter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		286C6EF12035FD6C00638663 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		286C6EF22035FD6C00638663 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -728,6 +731,8 @@
 				282C82952066DE1100F3E2CA /* HotbarPreviewRenderer.m */,
 				2805C9A9207FD0CD00080072 /* NSData+ZLib.h */,
 				2805C9AA207FD0CD00080072 /* NSData+ZLib.m */,
+				285C258D20B1F21700CD8D55 /* ChunkCountFormatter.h */,
+				285C258E20B1F21700CD8D55 /* ChunkCountFormatter.m */,
 			);
 			path = Stonecutter;
 			sourceTree = "<group>";
@@ -1421,6 +1426,7 @@
 				2805C9AB207FD0CD00080072 /* NSData+ZLib.m in Sources */,
 				286C71F920375C6F00638663 /* ProgressWindow.m in Sources */,
 				286C6EF62035FD6C00638663 /* MCWorldDocument.mm in Sources */,
+				285C258F20B1F21700CD8D55 /* ChunkCountFormatter.m in Sources */,
 				285C258320AE0F5100CD8D55 /* PlayersWindowController.m in Sources */,
 				286C6F012035FD6C00638663 /* main.m in Sources */,
 				28FF91832065BB9800A2A866 /* WorldOperation.m in Sources */,
