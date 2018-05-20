@@ -23,6 +23,7 @@
 @property (nonatomic, readonly) MCPlayer *localPlayer;
 @property (nonatomic, strong) NSImage *thumbnail;
 @property (nonatomic, strong) NSString *worldName;
+@property (nonatomic, readonly) NSNumber *worldSeed;
 
 - (void)switchLocalPlayerToUUID:(NSUUID*)newUUID withPlayer:(MCPlayer*)playerToBecomeLocal;
 - (IBAction)showPlayersWindow:(id)sender;

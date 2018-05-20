@@ -326,11 +326,21 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     fs.seekg(8, fs.beg); // skip header
     nbt::io::stream_reader reader(fs, endian::little);
     const nbt::value compound(reader.read_compound().second);
+    [self willChangeValueForKey:@"worldSeed"];
     levelDat = [self objectWithNBTValue:compound];
+    [self didChangeValueForKey:@"worldSeed"];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tabView selectTabViewItemAtIndex:1];
     });
+}
+
+- (NSNumber*)worldSeed {
+    // level.dat doesn't handle 64-bit numbers correctly
+    uint64_t seed = [levelDat[@"RandomSeed"] unsignedLongLongValue];
+    char buf[8];
+    OSWriteLittleInt64(buf, 0, seed);
+    return @(static_cast<int32_t>(OSReadLittleInt32(buf, 0)));
 }
 
 - (void)showPlayersWindow:(id)sender {
