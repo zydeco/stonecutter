@@ -287,8 +287,8 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
         else if (keySize == 9 || keySize == 10 || keySize == 13 || keySize == 14) {
             const char * keyData = it->key().data();
             int32_t x = OSReadLittleInt32(keyData, 0);
-            int32_t y = OSReadLittleInt32(keyData, 4);
-            ChunkPos pos = {.x = x, .y = y};
+            int32_t z = OSReadLittleInt32(keyData, 4);
+            ChunkPos pos = {.x = x, .z = z};
             
             if (keySize == 9 || keySize == 10) {
                 [overworldChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
