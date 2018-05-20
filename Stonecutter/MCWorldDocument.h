@@ -27,6 +27,7 @@
 
 - (void)switchLocalPlayerToUUID:(NSUUID*)newUUID withPlayer:(MCPlayer*)playerToBecomeLocal;
 - (IBAction)showPlayersWindow:(id)sender;
+- (NSSet<NSValue*>*)chunksForDimension:(MCDimension)dim;
 
 @end
 

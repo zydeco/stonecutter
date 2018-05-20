@@ -30,6 +30,7 @@
 #import "MCPlayer.h"
 #import "DocumentController.h"
 #import "PlayersWindowController.h"
+#import "WorldWindowController.h"
 
 using namespace libzippp;
 using namespace leveldb;
@@ -288,16 +289,19 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
             const char * keyData = it->key().data();
             int32_t x = OSReadLittleInt32(keyData, 0);
             int32_t z = OSReadLittleInt32(keyData, 4);
+            uint8_t tag = keyData[keySize > 12 ? 12 : 8];
             ChunkPos pos = {.x = x, .z = z};
             
-            if (keySize == 9 || keySize == 10) {
-                [overworldChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
-            } else {
-                int32_t dimension = OSReadLittleInt32(keyData, 8);
-                if (dimension == MCDimensionNether) {
-                    [netherChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
-                } else if (dimension == MCDimensionEnd) {
-                    [endChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+            if (IsValidChunkTag(tag)) {
+                if (keySize == 9 || keySize == 10) {
+                    [overworldChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                } else {
+                    int32_t dimension = OSReadLittleInt32(keyData, 8);
+                    if (dimension == MCDimensionNether) {
+                        [netherChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                    } else if (dimension == MCDimensionEnd) {
+                        [endChunks addObject:[NSValue value:&pos withObjCType:@encode(ChunkPos)]];
+                    }
                 }
             }
         }
@@ -400,6 +404,31 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     [self willChangeValueForKey:@"players"];
     players = newPlayers;
     [self didChangeValueForKey:@"players"];
+}
+
+- (IBAction)showWorldWindow:(id)sender {
+    MCDimension targetDimension = (MCDimension)[sender tag];
+    for (WorldWindowController *wc in self.windowControllers) {
+        if ([wc isKindOfClass:[WorldWindowController class]] && wc.dimension == targetDimension) {
+            [wc showWindow:self];
+            return;
+        }
+    }
+    WorldWindowController *wc = [[WorldWindowController alloc] initWithWindowNibName:@"WorldWindowController"];
+    wc.dimension = targetDimension;
+    [self addWindowController:wc];
+    [wc showWindow:self];
+}
+
+- (NSSet<NSValue *> *)chunksForDimension:(MCDimension)dim {
+    switch (dim) {
+        case MCDimensionOverworld:
+            return _overworldChunks;
+        case MCDimensionNether:
+            return _netherChunks;
+        case MCDimensionEnd:
+            return _endChunks;
+    }
 }
 
 - (id)objectWithNBTValue:(const nbt::value &)value {
