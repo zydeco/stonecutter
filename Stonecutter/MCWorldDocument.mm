@@ -29,6 +29,7 @@
 #import "PerformActionOperation.h"
 #import "MCPlayer.h"
 #import "DocumentController.h"
+#import "PlayersWindowController.h"
 
 using namespace libzippp;
 using namespace leveldb;
@@ -48,8 +49,6 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
     DB *db;
     NSArray<MCPlayer*> *players;
     NSDictionary *levelDat;
-    
-    __weak PlayersWindowController *playersWindowController;
 }
 
 - (instancetype)init {
@@ -349,12 +348,15 @@ NSErrorDomain LevelDBErrorDomain = @"LevelDBErrorDomain";
 }
 
 - (void)showPlayersWindow:(id)sender {
-    if (playersWindowController == nil) {
-        PlayersWindowController *wc = [[PlayersWindowController alloc] initWithWindowNibName:@"PlayersWindowController"];
-        [self addWindowController:wc];
-        playersWindowController = wc;
+    for (NSWindowController *wc in self.windowControllers) {
+        if ([wc isKindOfClass:[PlayersWindowController class]]) {
+            [wc showWindow:self];
+            return;
+        }
     }
-    [playersWindowController showWindow:self];
+    PlayersWindowController *wc = [[PlayersWindowController alloc] initWithWindowNibName:@"PlayersWindowController"];
+    [self addWindowController:wc];
+    [wc showWindow:self];
 }
 
 - (NSArray<MCPlayer *> *)players {

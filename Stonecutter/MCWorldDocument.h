@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MCTypes.h"
-#import "PlayersWindowController.h"
 
 @class ProgressWindow, MCPlayer;
 
