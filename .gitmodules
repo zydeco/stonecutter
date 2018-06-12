@@ -13,3 +13,6 @@
 [submodule "RakNetWrapper"]
 	path = RakNetWrapper
 	url = git@github.com:ss-abramchuk/RakNetWrapper.git
+[submodule "NBTKit"]
+	path = NBTKit
+	url = git@github.com:zydeco/NBTKit.git
