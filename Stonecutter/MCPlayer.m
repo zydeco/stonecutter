@@ -70,7 +70,7 @@
             itemID *= -1;
         }
         int hotbarSlot = slot - firstHotbarSlot;
-        if (hotbarSlot >= 0 && hotbarSlot <= 9) {
+        if (hotbarSlot >= 0 && hotbarSlot < 9) {
             hotbar[hotbarSlot] = itemID;
         }
     }
