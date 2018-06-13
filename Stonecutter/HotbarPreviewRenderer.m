@@ -62,7 +62,7 @@
             [itemSheet drawInRect:dstRect fromRect:NSMakeRect(0, (itemID - 256) * 16, 16, 16) operation:NSCompositingOperationCopy fraction:1.0];
         } else if (itemID > 0) {
             // block
-            [blockSheet drawInRect:dstRect fromRect:NSMakeRect(0, 4807 - (itemID * 19), 19, 19) operation:NSCompositingOperationCopy fraction:1.0];
+            [blockSheet drawInRect:dstRect fromRect:NSMakeRect(0, 4788 - (itemID * 19), 19, 19) operation:NSCompositingOperationCopy fraction:1.0];
         }
         if (enchanted) {
             [[[NSColor purpleColor] colorWithAlphaComponent:0.5] setFill];
