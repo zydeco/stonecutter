@@ -61,15 +61,18 @@
     
     // inventory
     int16_t hotbar[9] = {0,0,0,0,0,0,0,0,0};
+    int firstHotbarSlot = nbt[@"InventoryVersion"] ? 0 : 9;
     for (NSDictionary *item in nbt[@"Inventory"]) {
         int16_t slot = [item[@"Slot"] shortValue];
         int16_t itemID = [item[@"id"] shortValue];
-        if (slot < 9 || slot > 17) continue;
         BOOL enchanted = [[item valueForKeyPath:@"tag.ench"] count] > 0;
         if (enchanted) {
             itemID *= -1;
         }
-        hotbar[slot-9] = itemID;
+        int hotbarSlot = slot - firstHotbarSlot;
+        if (hotbarSlot >= 0 && hotbarSlot <= 9) {
+            hotbar[hotbarSlot] = itemID;
+        }
     }
     _hotbarItems = [NSArray arrayWithObjects:@(hotbar[0]), @(hotbar[1]),
                    @(hotbar[2]), @(hotbar[3]), @(hotbar[4]), @(hotbar[5]),
